@@ -1,0 +1,8 @@
+{
+    "presets" :
+    [
+        "pfft-partial-ava/config/babelrc.js",
+        "pfft-partial-babel/config/babelrc.js",
+        "pfft-partial-react/config/babelrc.js"
+    ]
+}

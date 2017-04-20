@@ -1,0 +1,24 @@
+{
+  "devDependencies": {
+    "pfft-preset-express": "^0.21.3"
+  },
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2",
+    "lodash": "^4.17.4"
+  },
+  "ava": {
+    "babel": "inherit",
+    "require": [
+      "pfft-partial-ava/config/setup"
+    ]
+  },
+  "scripts": {
+    "coverage": "express coverage",
+    "serve": "express serve",
+    "test": "express test"
+  }
+}
