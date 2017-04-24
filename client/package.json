@@ -24,7 +24,7 @@
     "build": "react-app build",
     "clean": "react-app clean",
     "coverage": "react-app coverage",
-    "start": "react-app start",
+    "start": "react-app start config/development",
     "test": "react-app test"
   }
 }

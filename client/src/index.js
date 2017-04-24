@@ -1,8 +1,9 @@
-import React       from 'react';
-import { render }  from 'react-dom';
-import reducers    from 'src/reducers';
-import createStore from 'src/services/store';
-import Root        from 'src/components/Root';
+import React      from 'react';
+import { render } from 'react-dom';
+
+import reducers    from './reducers';
+import createStore from './services/store';
+import Root        from './components/Root';
 
 
 // -------------------------------------------------------------------------- //
