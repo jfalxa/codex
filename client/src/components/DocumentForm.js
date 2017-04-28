@@ -5,7 +5,19 @@ import Container from './Container';
 
 export default class DocumentForm extends React.Component
 {
-    handleAutocompleteChange = ( e ) =>
+    componentDidMount()
+    {
+        const { loadDoc, match } = this.props;
+        const { docID }          = match.params;
+
+        if ( docID )
+        {
+            loadDoc( docID );
+        }
+    }
+
+
+    handleChangeAutocomplete = ( e ) =>
     {
         const { autocomplete } = this.props;
         const input = e.target.value;
@@ -13,7 +25,7 @@ export default class DocumentForm extends React.Component
     }
 
 
-    handleAutocompleteSubmit = ( e ) =>
+    handleSubmitAutocomplete = ( e ) =>
     {
         e.preventDefault();
         const { input, addTag } = this.props;
@@ -21,9 +33,39 @@ export default class DocumentForm extends React.Component
     }
 
 
+    handleChangeName = ( e ) =>
+    {
+        const { changeName } = this.props;
+        const name = e.target.value;
+        changeName( name );
+    }
+
+
+    handleSaveDoc = ( e ) =>
+    {
+        const { updateDoc, createDoc } = this.props;
+        const { doc, match }           = this.props;
+        const { docID }                = match.params;
+
+        if ( !doc.name )
+        {
+            return;
+        }
+
+        if ( docID )
+        {
+            updateDoc( docID, doc );
+        }
+        else
+        {
+            createDoc( doc );
+        }
+    }
+
+
     render()
     {
-        const { tags, input, suggestions } = this.props;
+        const { doc, tags, input, suggestions } = this.props;
 
         return (
 
@@ -33,10 +75,13 @@ export default class DocumentForm extends React.Component
 
                     <form
                         id="document-form"
-                        onChange={ this.handleAutocompleteChange }
-                        onSubmit={ this.handleAutocompleteSubmit }>
+                        onChange={ this.handleChangeAutocomplete }
+                        onSubmit={ this.handleSubmitAutocomplete }>
 
-                        <input name="tag" value={ input  } />
+                        <input
+                            name="tag"
+                            placeholder="Enter a tag..."
+                            value={ input  } />
 
                     </form>
 
@@ -48,8 +93,16 @@ export default class DocumentForm extends React.Component
 
                 <Container rows>
 
+                    <button onClick={ this.handleSaveDoc }>Save</button>
+
+                    <input
+                        name="doc"
+                        placeholder="Enter a title..."
+                        value={ doc.name || '' }
+                        onChange={ this.handleChangeName } />
+
                     <ul>
-                        { tags.map( tag => <li>{ tag }</li> ) }
+                        { tags.map( ( tag, i ) => <li key={ i }>{ tag }</li> ) }
                     </ul>
 
                 </Container>

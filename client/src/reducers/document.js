@@ -1,12 +1,19 @@
-import update from 'immutability-helper';
+import update           from 'immutability-helper';
+import { createAction } from 'redux-actions';
+
+import * as docs from '../services/api/docs';
 
 
 // -------------------------------------------------------------------------- //
 // ACTION NAMES                                                               //
 // -------------------------------------------------------------------------- //
 
+const CREATE_DOC   = 'app/CREATE_DOC';
 const LOAD_DOC     = 'app/LOAD_DOC';
+const UPDATE_DOC   = 'app/UPDATE_DOC';
+const DELETE_DOC   = 'app/DELETE_DOC';
 const AUTOCOMPLETE = 'app/AUTOCOMPLETE';
+const CHANGE_NAME  = 'app/CHANGE_NAME';
 const ADD_TAG      = 'app/ADD_TAG';
 
 
@@ -14,22 +21,13 @@ const ADD_TAG      = 'app/ADD_TAG';
 // ACTION CREATORS                                                            //
 // -------------------------------------------------------------------------- //
 
-export function loadDoc( docID )
-{
-    return { type : LOAD_DOC };
-}
-
-
-export function autocomplete( input )
-{
-    return { type : AUTOCOMPLETE, input };
-}
-
-
-export function addTag( tag )
-{
-    return { type : ADD_TAG, tag };
-}
+export const createDoc    = createAction( CREATE_DOC, docs.createDoc );
+export const loadDoc      = createAction( LOAD_DOC, docs.loadDoc );
+export const updateDoc    = createAction( UPDATE_DOC, docs.updateDoc );
+export const deleteDoc    = createAction( DELETE_DOC, docs.deleteDoc );
+export const autocomplete = createAction( AUTOCOMPLETE );
+export const changeName   = createAction( CHANGE_NAME );
+export const addTag       = createAction( ADD_TAG );
 
 
 // -------------------------------------------------------------------------- //
@@ -38,16 +36,31 @@ export function addTag( tag )
 
 function handleLoadDoc( state, action )
 {
-    return state;
+    const change =
+    {
+        doc : { $set : action.payload }
+    };
+
+    return update( state, change );
 }
 
 
 function handleAutocomplete( state, action )
 {
-    const change = {
+    const change =
+    {
+        input : { $set : action.payload }
+    };
 
-        input : { $set : action.input }
+    return update( state, change );
+}
 
+
+function handleChangeName( state, action )
+{
+    const change =
+    {
+        doc : { name : { $set : action.payload } }
     };
 
     return update( state, change );
@@ -56,11 +69,10 @@ function handleAutocomplete( state, action )
 
 function handleAddTag( state, action )
 {
-    const change = {
-
+    const change =
+    {
         input : { $set : '' },
-        tags  : { $push : [action.tag] }
-
+        tags  : { $push : [action.payload] }
     };
 
     return update( state, change );
@@ -73,7 +85,7 @@ function handleAddTag( state, action )
 
 const defaultState = {
 
-    doc         : null, // currently edited document
+    doc         : {}, // currently edited document
     tags        : [], // list of tags for this document
     input       : '', // contents of the tag input
     suggestions : [], // list of suggestions for the current input
@@ -89,6 +101,9 @@ export default function documentReducer( state=defaultState, action )
 
         case AUTOCOMPLETE:
             return handleAutocomplete( state, action );
+
+        case CHANGE_NAME:
+            return handleChangeName( state, action );
 
         case ADD_TAG:
             return handleAddTag( state, action );

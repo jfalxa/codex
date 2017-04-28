@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import DocumentForm             from './DocumentForm';
-import { autocomplete, addTag } from '../reducers/document';
+import DocumentForm from './DocumentForm';
+import { loadDoc, updateDoc, createDoc, autocomplete, changeName, addTag } from '../reducers/document';
 
 
 export function selectDocumentForm( state )
@@ -10,11 +10,14 @@ export function selectDocumentForm( state )
 }
 
 
-const actionCreators = {
-
+const actionCreators =
+{
+    loadDoc,
+    updateDoc,
+    createDoc,
     autocomplete,
+    changeName,
     addTag
-
 };
 
 

@@ -1,10 +1,12 @@
 import thunkMiddleware                  from 'redux-thunk';
+import promiseMiddleware                from 'redux-promise';
 import { createStore, applyMiddleware } from 'redux';
 
 
 const middlewares =
 [
-    thunkMiddleware
+    thunkMiddleware,
+    promiseMiddleware
 ];
 
 
