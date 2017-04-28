@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
-import appReducer          from './app';
+
+import appReducer      from './app';
+import documentReducer from './document';
 
 
 const reducers =
 {
-    app : appReducer
+    app      : appReducer,
+    document : documentReducer
 };
 
 

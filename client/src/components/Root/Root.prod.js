@@ -11,7 +11,7 @@ export default function RootProd( { store } )
 
         <Provider store={ store }>
             <BrowserRouter>
-                <Route pattern="/" component={ App } />
+                <Route path="/" component={ App } />
             </BrowserRouter>
         </Provider>
 
