@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 
-import appReducer      from './app';
+import codexReducer    from './codex';
 import documentReducer from './document';
 
 
 const reducers =
 {
-    app      : appReducer,
+    codex    : codexReducer,
     document : documentReducer
 };
 

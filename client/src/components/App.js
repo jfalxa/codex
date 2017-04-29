@@ -1,8 +1,11 @@
 import React     from 'react';
 import { Route } from 'react-router-dom';
 
-import Container             from './Container';
-import ConnectedDocumentForm from './ConnectedDocumentForm';
+import Container                from './Container';
+import Topbar                   from './Topbar';
+import ConnectedDocumentList    from './ConnectedDocumentList';
+import ConnectedDocumentCreator from './ConnectedDocumentCreator';
+import ConnectedDocumentEditor  from './ConnectedDocumentEditor';
 
 
 export default class App extends React.Component
@@ -13,7 +16,11 @@ export default class App extends React.Component
 
             <Container rows>
 
-                <Route path="/doc/:docID?" component={ ConnectedDocumentForm } />
+                <Topbar />
+
+                <Route exact path="/" component={ ConnectedDocumentList } />
+                <Route path="/add" component={ ConnectedDocumentCreator } />
+                <Route path="/doc/:docID" component={ ConnectedDocumentEditor } />
 
             </Container>
 

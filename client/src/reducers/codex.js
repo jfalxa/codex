@@ -1,27 +1,35 @@
+import update           from 'immutability-helper';
+import { createAction } from 'redux-actions';
+
+import * as docs from '../services/api/docs';
+
+
 // -------------------------------------------------------------------------- //
 // ACTION NAMES                                                               //
 // -------------------------------------------------------------------------- //
 
-const ACTION = 'app/ACTION';
+const LOAD_ALL_DOCS = 'codex/LOAD_ALL_DOCS';
 
 
 // -------------------------------------------------------------------------- //
 // ACTION CREATORS                                                            //
 // -------------------------------------------------------------------------- //
 
-export function action()
-{
-    return { type : ACTION };
-}
+export const loadAllDocs = createAction( LOAD_ALL_DOCS, docs.loadAllDocs );
 
 
 // -------------------------------------------------------------------------- //
 // STATE MANAGEMENT HELPERS                                                   //
 // -------------------------------------------------------------------------- //
 
-function handleAction( state, action )
+function handleLoadAllDocs( state, action )
 {
-    return state;
+    const change =
+    {
+        documents : { $set : action.payload }
+    };
+
+    return update( state, change );
 }
 
 
@@ -29,14 +37,17 @@ function handleAction( state, action )
 // REDUCER                                                                    //
 // -------------------------------------------------------------------------- //
 
-const defaultState = {};
+const defaultState =
+{
+    documents : []
+};
 
-export default function appReducer( state=defaultState, action )
+export default function codexReducer( state=defaultState, action )
 {
     switch ( action.type )
     {
-        case ACTION:
-            return handleAction( state, action );
+        case LOAD_ALL_DOCS:
+            return handleLoadAllDocs( state, action );
 
         default:
             return state;

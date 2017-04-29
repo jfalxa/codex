@@ -8,13 +8,14 @@ import * as docs from '../services/api/docs';
 // ACTION NAMES                                                               //
 // -------------------------------------------------------------------------- //
 
-const CREATE_DOC   = 'app/CREATE_DOC';
-const LOAD_DOC     = 'app/LOAD_DOC';
-const UPDATE_DOC   = 'app/UPDATE_DOC';
-const DELETE_DOC   = 'app/DELETE_DOC';
-const AUTOCOMPLETE = 'app/AUTOCOMPLETE';
-const CHANGE_NAME  = 'app/CHANGE_NAME';
-const ADD_TAG      = 'app/ADD_TAG';
+const CREATE_DOC   = 'doc/CREATE_DOC';
+const LOAD_DOC     = 'doc/LOAD_DOC';
+const UPDATE_DOC   = 'doc/UPDATE_DOC';
+const DELETE_DOC   = 'doc/DELETE_DOC';
+const RESET_DOC   = 'doc/RESET_DOC';
+const AUTOCOMPLETE = 'doc/AUTOCOMPLETE';
+const CHANGE_NAME  = 'doc/CHANGE_NAME';
+const ADD_TAG      = 'doc/ADD_TAG';
 
 
 // -------------------------------------------------------------------------- //
@@ -25,6 +26,7 @@ export const createDoc    = createAction( CREATE_DOC, docs.createDoc );
 export const loadDoc      = createAction( LOAD_DOC, docs.loadDoc );
 export const updateDoc    = createAction( UPDATE_DOC, docs.updateDoc );
 export const deleteDoc    = createAction( DELETE_DOC, docs.deleteDoc );
+export const resetDoc     = createAction( RESET_DOC );
 export const autocomplete = createAction( AUTOCOMPLETE );
 export const changeName   = createAction( CHANGE_NAME );
 export const addTag       = createAction( ADD_TAG );
@@ -39,6 +41,18 @@ function handleLoadDoc( state, action )
     const change =
     {
         doc : { $set : action.payload }
+    };
+
+    return update( state, change );
+}
+
+
+function handleResetDoc( state, action )
+{
+    const change =
+    {
+        input : { $set : '' },
+        doc   : { $set : {} }
     };
 
     return update( state, change );
@@ -98,6 +112,9 @@ export default function documentReducer( state=defaultState, action )
     {
         case LOAD_DOC:
             return handleLoadDoc( state, action );
+
+        case RESET_DOC:
+            return handleResetDoc( state, action );
 
         case AUTOCOMPLETE:
             return handleAutocomplete( state, action );

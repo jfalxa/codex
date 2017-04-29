@@ -1,6 +1,6 @@
 export default function callAPI( url, options )
 {
-    const finalOptions = 
+    const finalOptions =
     {
         ...options,
 
@@ -11,7 +11,7 @@ export default function callAPI( url, options )
         }
     };
 
-    return fetch( `/api/${ url }`, finalOptions )
+    return fetch( `/api${ url }`, finalOptions )
         .then( response => response.json() );
 }
 

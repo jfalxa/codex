@@ -5,18 +5,6 @@ import Container from './Container';
 
 export default class DocumentForm extends React.Component
 {
-    componentDidMount()
-    {
-        const { loadDoc, match } = this.props;
-        const { docID }          = match.params;
-
-        if ( docID )
-        {
-            loadDoc( docID );
-        }
-    }
-
-
     handleChangeAutocomplete = ( e ) =>
     {
         const { autocomplete } = this.props;
@@ -41,31 +29,9 @@ export default class DocumentForm extends React.Component
     }
 
 
-    handleSaveDoc = ( e ) =>
-    {
-        const { updateDoc, createDoc } = this.props;
-        const { doc, match }           = this.props;
-        const { docID }                = match.params;
-
-        if ( !doc.name )
-        {
-            return;
-        }
-
-        if ( docID )
-        {
-            updateDoc( docID, doc );
-        }
-        else
-        {
-            createDoc( doc );
-        }
-    }
-
-
     render()
     {
-        const { doc, tags, input, suggestions } = this.props;
+        const { doc, tags, input, suggestions, onSave } = this.props;
 
         return (
 
@@ -86,14 +52,14 @@ export default class DocumentForm extends React.Component
                     </form>
 
                     <ul>
-                        { suggestions.map( suggestion => <li>{ suggestion }</li> ) }
+                        { suggestions.map( ( suggestion, i ) => <li key={ i }>{ suggestion }</li> ) }
                     </ul>
 
                 </Container>
 
                 <Container rows>
 
-                    <button onClick={ this.handleSaveDoc }>Save</button>
+                    <button onClick={ onSave }>Save</button>
 
                     <input
                         name="doc"
