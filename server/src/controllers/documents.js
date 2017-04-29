@@ -21,21 +21,21 @@ exports.getDocument = function getDocument( req, res, next )
 {
     Document.getDocument( req.params.docID )
         .then( doc => res.status( 200 ).json( doc ) )
-        .catch( error => res.status( 500 ).json( { error } ) );
+        .catch( error => res.status( 404 ).end() );
 };
 
 
 exports.updateDocument = function updateDocument( req, res, next )
 {
     Document.updateDocument( req.params.docID, req.body )
-        .then( () => res.status( 201 ).end() )
-        .catch( error => res.status( 500 ).json( { error } ) );
+        .then( () => res.status( 200 ).end() )
+        .catch( error => res.status( 404 ).end() );
 };
 
 
 exports.deleteDocument = function deleteDocument( req, res, next )
 {
     Document.deleteDocument( req.params.docID )
-        .then( () => res.status( 201 ).end() )
-        .catch( error => res.status( 500 ).json( { error } ) );
+        .then( () => res.status( 200 ).end() )
+        .catch( error => res.status( 404 ).end() );
 };
