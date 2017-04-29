@@ -31,7 +31,10 @@ export default class DocumentForm extends React.Component
 
     render()
     {
-        const { doc, tags, input, suggestions, onSave } = this.props;
+        const { doc, input, suggestions, onSave } = this.props;
+
+        const name = doc.name || '';
+        const tags = doc.tags || [];
 
         return (
 
@@ -47,7 +50,7 @@ export default class DocumentForm extends React.Component
                         <input
                             name="tag"
                             placeholder="Enter a tag..."
-                            value={ input  } />
+                            value={ input } />
 
                     </form>
 
@@ -64,7 +67,7 @@ export default class DocumentForm extends React.Component
                     <input
                         name="doc"
                         placeholder="Enter a title..."
-                        value={ doc.name || '' }
+                        value={ name }
                         onChange={ this.handleChangeName } />
 
                     <ul>

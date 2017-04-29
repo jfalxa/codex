@@ -12,7 +12,7 @@ const CREATE_DOC   = 'doc/CREATE_DOC';
 const LOAD_DOC     = 'doc/LOAD_DOC';
 const UPDATE_DOC   = 'doc/UPDATE_DOC';
 const DELETE_DOC   = 'doc/DELETE_DOC';
-const RESET_DOC   = 'doc/RESET_DOC';
+const RESET_DOC    = 'doc/RESET_DOC';
 const AUTOCOMPLETE = 'doc/AUTOCOMPLETE';
 const CHANGE_NAME  = 'doc/CHANGE_NAME';
 const ADD_TAG      = 'doc/ADD_TAG';
@@ -36,6 +36,12 @@ export const addTag       = createAction( ADD_TAG );
 // STATE MANAGEMENT HELPERS                                                   //
 // -------------------------------------------------------------------------- //
 
+function handleResetDoc()
+{
+    return { ...defaultState };
+}
+
+
 function handleLoadDoc( state, action )
 {
     const change =
@@ -43,19 +49,7 @@ function handleLoadDoc( state, action )
         doc : { $set : action.payload }
     };
 
-    return update( state, change );
-}
-
-
-function handleResetDoc( state, action )
-{
-    const change =
-    {
-        input : { $set : '' },
-        doc   : { $set : {} }
-    };
-
-    return update( state, change );
+    return update( defaultState, change );
 }
 
 
@@ -74,7 +68,10 @@ function handleChangeName( state, action )
 {
     const change =
     {
-        doc : { name : { $set : action.payload } }
+        doc :
+        {
+            name : { $set : action.payload }
+        }
     };
 
     return update( state, change );
@@ -86,7 +83,11 @@ function handleAddTag( state, action )
     const change =
     {
         input : { $set : '' },
-        tags  : { $push : [action.payload] }
+
+        doc :
+        {
+            tags : { $push : [action.payload] }
+        }
     };
 
     return update( state, change );
@@ -99,22 +100,25 @@ function handleAddTag( state, action )
 
 const defaultState = {
 
-    doc         : {}, // currently edited document
-    tags        : [], // list of tags for this document
     input       : '', // contents of the tag input
     suggestions : [], // list of suggestions for the current input
 
+    doc : // currently edited document
+    {
+        name : '',
+        tags : []
+    }
 };
 
 export default function documentReducer( state=defaultState, action )
 {
     switch ( action.type )
     {
+        case RESET_DOC:
+            return handleResetDoc( state );
+
         case LOAD_DOC:
             return handleLoadDoc( state, action );
-
-        case RESET_DOC:
-            return handleResetDoc( state, action );
 
         case AUTOCOMPLETE:
             return handleAutocomplete( state, action );
