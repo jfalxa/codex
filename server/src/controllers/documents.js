@@ -4,7 +4,7 @@ const Document = require( '../models/document' );
 exports.createDocument = function createDocument( req, res, next )
 {
     Document.createDocument( req.body.name )
-        .then( () => res.status( 201 ).end() )
+        .then( data => res.status( 201 ).json( data ) )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
 
