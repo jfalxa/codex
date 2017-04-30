@@ -86,7 +86,7 @@ function handleAddTag( state, action )
 
         doc :
         {
-            tags : { $push : [action.payload] }
+            tags : { $push : [{ name : action.payload }] }
         }
     };
 

@@ -71,7 +71,7 @@ export default class DocumentForm extends React.Component
                         onChange={ this.handleChangeName } />
 
                     <ul>
-                        { tags.map( ( tag, i ) => <li key={ i }>{ tag }</li> ) }
+                        { tags.map( ( tag, i ) => <li key={ tag.id || i }>{ tag.name }</li> ) }
                     </ul>
 
                 </Container>
