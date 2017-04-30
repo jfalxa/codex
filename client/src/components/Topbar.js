@@ -13,8 +13,6 @@ export default function Topbar( props )
             <Link to="/">Home</Link>
             -
             <Link to="/add">New document</Link>
-            -
-            <Link to="/doc/18">Document #18</Link>
 
         </Container>
 
