@@ -16,6 +16,12 @@ export default class Autocomplete extends React.Component
     handleSubmitAutocomplete = ( e ) =>
     {
         e.preventDefault();
+
+        if ( !this.props.value )
+        {
+            return;
+        }
+
         const { value, onSubmit } = this.props;
         onSubmit( value );
     }

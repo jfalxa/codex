@@ -17,6 +17,11 @@ exports.createTag = function createTag( tag )
 
 exports.createManyTags = function createManyTags( manyTags )
 {
+    if ( manyTags.length === 0 )
+    {
+        return Promise.resolve( [] );
+    }
+
     // batch all the tag insertion in one query
     const query = pgp.helpers.insert( manyTags, ['name'], 'tags' )
         + ' RETURNING id';
@@ -41,13 +46,8 @@ exports.createManyMissingTags = function createManyMissingTags( tags )
     const existingTags = _filter( tags, 'id' );
     const missingTags  = _reject( tags, 'id' );
 
-    if ( missingTags.length > 0 )
-    {
-        return exports.createManyTags( missingTags )
-            .then( tags => existingTags.concat( tags ) );
-    }
-
-    return Promise.resolve( existingTags );
+    return exports.createManyTags( missingTags )
+        .then( newTags => existingTags.concat( newTags ) );
 };
 
 

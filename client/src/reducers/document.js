@@ -1,4 +1,5 @@
 import update           from 'immutability-helper';
+import _findIndex       from 'lodash/findIndex';
 import { createAction } from 'redux-actions';
 
 import * as docs from '../services/api/docs';
@@ -16,6 +17,7 @@ const RESET_DOC    = 'doc/RESET_DOC';
 const AUTOCOMPLETE = 'doc/AUTOCOMPLETE';
 const CHANGE_NAME  = 'doc/CHANGE_NAME';
 const ADD_TAG      = 'doc/ADD_TAG';
+const DELETE_TAG   = 'doc/DELETE_TAG';
 
 
 // -------------------------------------------------------------------------- //
@@ -30,6 +32,7 @@ export const resetDoc     = createAction( RESET_DOC );
 export const autocomplete = createAction( AUTOCOMPLETE );
 export const changeName   = createAction( CHANGE_NAME );
 export const addTag       = createAction( ADD_TAG );
+export const deleteTag    = createAction( DELETE_TAG );
 
 
 // -------------------------------------------------------------------------- //
@@ -94,6 +97,23 @@ function handleAddTag( state, action )
 }
 
 
+function handleDeleteTag( state, action )
+{
+    // find tag to delete in current list
+    const index = _findIndex( state.doc.tags, action.payload );
+
+    const change =
+    {
+        doc :
+        {
+            tags : { $splice : [[index, 1]] }
+        }
+    };
+
+    return update( state, change );
+}
+
+
 // -------------------------------------------------------------------------- //
 // REDUCER                                                                    //
 // -------------------------------------------------------------------------- //
@@ -128,6 +148,9 @@ export default function documentReducer( state=defaultState, action )
 
         case ADD_TAG:
             return handleAddTag( state, action );
+
+        case DELETE_TAG:
+            return handleDeleteTag( state, action );
 
         default:
             return state;

@@ -3,13 +3,35 @@ import React from 'react';
 import Container from './Container';
 
 
+
+function Tag( { name, onEdit, onDelete } )
+{
+    return (
+
+        <li>
+            <button onClick={ onEdit }>E</button>
+            <button onClick={ onDelete }>X</button>
+            <span>{ name }</span>
+        </li>
+
+    );
+}
+
+
 export default class DocumentTags extends React.Component
 {
-    handleChangeName = ( e ) =>
+    renderTags()
     {
-        const { onChangeName } = this.props;
-        const name = e.target.value;
-        onChangeName( name );
+        const { tags, onEditTag, onDeleteTag } = this.props;
+
+        return tags.map( ( tag, i ) =>
+        (
+            <Tag
+                key={ i }
+                name={ tag.name }
+                onEdit={ () => onEditTag( tag ) }
+                onDelete={ () => onDeleteTag( tag ) } />
+        ) );
     }
 
 
@@ -21,14 +43,8 @@ export default class DocumentTags extends React.Component
 
             <Container rows>
 
-                <input
-                    name="doc"
-                    placeholder="Enter a title..."
-                    value={ name || '' }
-                    onChange={ this.handleChangeName } />
-
                 <ul>
-                    { tags.map( ( tag, i ) => <li key={ tag.id || i }>{ tag.name }</li> ) }
+                    { this.renderTags() }
                 </ul>
 
             </Container>

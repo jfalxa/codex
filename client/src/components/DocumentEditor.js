@@ -1,6 +1,8 @@
 import React from 'react';
 
-import DocumentForm from './DocumentForm';
+import Container    from './Container';
+import Autocomplete from './Autocomplete';
+import DocumentTags from './DocumentTags';
 
 
 export default class DocumentEditor extends React.Component
@@ -24,27 +26,33 @@ export default class DocumentEditor extends React.Component
         }
     }
 
-
-    handleSaveDoc = () =>
-    {
-        if ( !this.props.doc.name )
-        {
-            return;
-        }
-
-        const { updateDoc, doc } = this.props;
-
-        updateDoc( doc.id, doc );
-    }
-
-
     render()
     {
+        const { input, suggestions, doc } = this.props;
+        const { autocomplete, addTag }    = this.props;
+
         return (
 
-            <DocumentForm { ...this.props }
-                onSave={ this.handleSaveDoc } />
+            <Container rows>
+
+                <h4>{ doc.name }</h4>
+
+                <Container columns>
+
+                    <Autocomplete
+                        value={ input }
+                        suggestions={ suggestions }
+                        onChange={ autocomplete }
+                        onSubmit={ addTag } />
+
+                    <DocumentTags
+                        tags={ doc.tags } />
+
+                </Container>
+
+            </Container>
 
         );
+
     }
 }
