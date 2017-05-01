@@ -60,7 +60,7 @@ export function addDocTag( docID, tag )
 }
 
 
-export function updateDocTag( docID, tagID, tag )
+export function udpateDocTag( docID, tagID, tag )
 {
     const options =
     {
@@ -72,11 +72,12 @@ export function updateDocTag( docID, tagID, tag )
 }
 
 
-export function deleteDocTag( docID, tagID )
+export function deleteDocTag( docID, tagID, tag )
 {
     const options =
     {
-        method : 'DELETE'
+        method : 'PUT',
+        body   : JSON.stringify( tag )
     };
 
     return callAPI( `/docs/${ docID }/tags/${ tagID }`, options );
