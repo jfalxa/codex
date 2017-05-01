@@ -2,7 +2,17 @@ const db  = require( '../services/db' );
 const pgp = require( 'pg-promise' )( { capSQL : true } );
 
 
-exports.addTagToDoc = function addTagToDoc( docID, tagID )
+exports.getDocTags = function getDocTags( docID )
+{
+    const query = 'SELECT t.id, t.name FROM tags t'
+        + ' INNER JOIN doc_tags dt ON t.id = dt.tag_id'
+        + ' WHERE dt.document_id = $1';
+
+    return db.any( query, docID );
+};
+
+
+exports.addDocTag = function addDocTag( docID, tagID )
 {
     const query = 'INSERT INTO doc_tags ( document_id, tag_id )'
         + ' VALUES ( $1, $2 )';
@@ -11,8 +21,13 @@ exports.addTagToDoc = function addTagToDoc( docID, tagID )
 };
 
 
-exports.addManyTagsToDoc = function addManyTagsToDoc( docID, manyTagIDs )
+exports.addManyDocTags = function addManyDocTags( docID, manyTagIDs )
 {
+    if ( manyTagIDs.length === 0 )
+    {
+        return Promise.resolve( [] );
+    }
+
     // prepare each row that will be added to the table
     const values = manyTagIDs.map( tagID => ( { document_id : docID, tag_id : tagID } ) );
 

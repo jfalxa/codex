@@ -10,5 +10,9 @@ documents.get( '/:docID', documentsCtrl.getDocument );
 documents.put( '/:docID', documentsCtrl.updateDocument );
 documents.delete( '/:docID', documentsCtrl.deleteDocument );
 
+documents.post( '/:docID/tags', documentsCtrl.addDocumentTag );
+documents.put( '/:docID/tags/:tagID', documentsCtrl.updateDocumentTag );
+documents.delete( '/:docID/tags/:tagID', documentsCtrl.deleteDocumentTag );
+
 
 module.exports = documents;

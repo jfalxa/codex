@@ -12,9 +12,9 @@ exports.createDocument = function createDocument( req, res, next )
 
     Document.createDocument( name )
         .then( data => ( docID = data.id ) )
-        .then( () => Tag.createManyTags( tags ) )
+        .then( () => Tag.createManyMissingTags( tags ) )
         .then( data => ( tagIDs = data.map( tag => tag.id ) ) )
-        .then( () => DocTag.addManyTagsToDoc( docID, tagIDs ) )
+        .then( () => DocTag.addManyDocTags( docID, tagIDs ) )
         .then( () => res.status( 201 ).json( { id : docID } ) )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
@@ -36,7 +36,7 @@ exports.getDocument = function getDocument( req, res, next )
 
     Document.getDocument( docID )
         .then( data => ( doc = data ) )
-        .then( () => Document.getDocumentTags( docID ) )
+        .then( () => DocTag.getDocTags( docID ) )
         .then( data => ( doc.tags = data ) )
         .then( () => res.status( 200 ).json( doc ) )
         .catch( error => res.status( 500 ).json( { error } ) );
@@ -45,7 +45,9 @@ exports.getDocument = function getDocument( req, res, next )
 
 exports.updateDocument = function updateDocument( req, res, next )
 {
-    Document.updateDocument( req.params.docID, req.body )
+    const { name } = req.body;
+
+    Document.updateDocument( req.params.docID, { name } )
         .then( () => res.status( 200 ).end() )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
@@ -55,5 +57,39 @@ exports.deleteDocument = function deleteDocument( req, res, next )
 {
     Document.deleteDocument( req.params.docID )
         .then( () => res.status( 200 ).end() )
-        .catch( error => res.status( 500 ).json( error ) );
+        .catch( error => res.status( 500 ).json( { error } ) );
+};
+
+
+exports.addDocumentTag = function addDocumentTag( req, res, next )
+{
+    let tag;
+
+    const { docID } = req.params.docID;
+
+    Tag.createMissingTag( req.body )
+        .then( data => ( tag = data ) )
+        .then( () => DocTag.addDocumentTag( docID, tag.id ) )
+        .then( () => res.status( 200 ).end() )
+        .catch( error => res.status( 500 ).json( { error } ) );
+};
+
+
+exports.updateDocumentTag = function updateDocumentTag( req, res, next )
+{
+    const { docID, tagID } = req.params;
+
+    DocTag.updateDocTag( docID, tagID, req.body.id )
+        .then( () => res.status( 200 ).end() )
+        .catch( error => res.status( 500 ).json( { error } ) );
+};
+
+
+exports.deleteDocumentTag = function deleteDocumentTag( req, res, next )
+{
+    const { docID, tagID } = req.params;
+
+    DocTag.deleteDocTag( docID, tagID )
+        .then( () => res.status( 200 ).end() )
+        .catch( error => res.status( 500 ).json( { error } ) );
 };

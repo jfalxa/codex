@@ -1,14 +1,17 @@
+const _filter = require( 'lodash/filter' );
+const _reject = require( 'lodash/reject' );
+
 const db  = require( '../services/db' );
 const pgp = require( 'pg-promise' )( { capSQL : true } );
 
 
-exports.createTag = function createTag( name )
+exports.createTag = function createTag( tag )
 {
     const query = 'INSERT INTO tags ( name )'
         + ' VALUES ( $1 )'
         + ' RETURNING id';
 
-    return db.one( query, name );
+    return db.one( query, tag.name );
 };
 
 
@@ -19,6 +22,32 @@ exports.createManyTags = function createManyTags( manyTags )
         + ' RETURNING id';
 
     return db.any( query );
+};
+
+
+exports.createMissingTag = function createMissingTag( tag )
+{
+    if ( tag.id )
+    {
+        return Promise.resolve( tag );
+    }
+
+    return exports.createTag( tag );
+};
+
+
+exports.createManyMissingTags = function createManyMissingTags( tags )
+{
+    const existingTags = _filter( tags, 'id' );
+    const missingTags  = _reject( tags, 'id' );
+
+    if ( missingTags.length > 0 )
+    {
+        return exports.createManyTags( missingTags )
+            .then( tags => existingTags.concat( tags ) );
+    }
+
+    return Promise.resolve( existingTags );
 };
 
 
@@ -48,3 +77,4 @@ exports.deleteTag = function deleteTag( tagID )
 
     return db.none( query, tagID );
 };
+

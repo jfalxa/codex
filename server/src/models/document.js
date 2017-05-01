@@ -28,16 +28,6 @@ exports.getDocument = function getDocument( docID )
 };
 
 
-exports.getDocumentTags = function getDocumentTags( docID )
-{
-    const query = 'SELECT t.id, t.name FROM tags t'
-        + ' INNER JOIN doc_tags dt ON t.id = dt.tag_id'
-        + ' WHERE dt.document_id = $1';
-
-    return db.any( query, docID );
-};
-
-
 exports.updateDocument = function updateDocument( docID, update )
 {
     const query = 'UPDATE documents'
