@@ -62,7 +62,6 @@ export default class DocumentEditor extends React.Component
 
                     <DocumentTags
                         tags={ doc.tags }
-                        onEditTag={ () => {} }
                         onDeleteTag={ this.handleRemoveTag } />
 
                 </Container>
