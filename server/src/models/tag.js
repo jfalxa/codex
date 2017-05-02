@@ -78,3 +78,13 @@ exports.deleteTag = function deleteTag( tagID )
     return db.none( query, tagID );
 };
 
+
+exports.findTag = function findTag( fragment )
+{
+    const query = 'SELECT * FROM tags'
+        + ' WHERE similarity( name, $1 ) > 0.3'
+        + ' ORDER BY similarity( name, $1 ) DESC';
+
+    return db.any( query, fragment );
+};
+
