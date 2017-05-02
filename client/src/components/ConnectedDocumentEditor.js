@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import DocumentEditor from './DocumentEditor';
-import { loadDoc, updateDoc, autocomplete, changeName, addTag } from '../reducers/document';
+import { apiLoadDoc, apiUpdateDoc, autocomplete, changeName, apiAddTag, apiRemoveTag } from '../reducers/document';
 
 
 export function selectDocumentEditor( state )
@@ -12,11 +12,12 @@ export function selectDocumentEditor( state )
 
 const actionCreators =
 {
-    loadDoc,
-    updateDoc,
+    apiLoadDoc,
+    apiUpdateDoc,
     autocomplete,
     changeName,
-    addTag
+    apiAddTag,
+    apiRemoveTag
 };
 
 

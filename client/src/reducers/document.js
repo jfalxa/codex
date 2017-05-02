@@ -2,7 +2,7 @@ import update           from 'immutability-helper';
 import _findIndex       from 'lodash/findIndex';
 import { createAction } from 'redux-actions';
 
-import * as docs from '../services/api/docs';
+import * as api from '../services/api/docs';
 
 
 // -------------------------------------------------------------------------- //
@@ -13,26 +13,30 @@ const CREATE_DOC   = 'doc/CREATE_DOC';
 const LOAD_DOC     = 'doc/LOAD_DOC';
 const UPDATE_DOC   = 'doc/UPDATE_DOC';
 const DELETE_DOC   = 'doc/DELETE_DOC';
-const RESET_DOC    = 'doc/RESET_DOC';
-const AUTOCOMPLETE = 'doc/AUTOCOMPLETE';
-const CHANGE_NAME  = 'doc/CHANGE_NAME';
 const ADD_TAG      = 'doc/ADD_TAG';
-const DELETE_TAG   = 'doc/DELETE_TAG';
+const REMOVE_TAG   = 'doc/REMOVE_TAG';
+const RESET_DOC    = 'doc/RESET_DOC';
+const CHANGE_NAME  = 'doc/CHANGE_NAME';
+const AUTOCOMPLETE = 'doc/AUTOCOMPLETE';
 
 
 // -------------------------------------------------------------------------- //
 // ACTION CREATORS                                                            //
 // -------------------------------------------------------------------------- //
 
-export const createDoc    = createAction( CREATE_DOC, docs.createDoc );
-export const loadDoc      = createAction( LOAD_DOC, docs.loadDoc );
-export const updateDoc    = createAction( UPDATE_DOC, docs.updateDoc );
-export const deleteDoc    = createAction( DELETE_DOC, docs.deleteDoc );
+export const apiCreateDoc = createAction( CREATE_DOC, api.createDoc );
+export const apiLoadDoc   = createAction( LOAD_DOC, api.loadDoc );
+export const apiUpdateDoc = createAction( UPDATE_DOC, api.updateDoc );
+export const apiRemoveDoc = createAction( DELETE_DOC, api.deleteDoc );
 export const resetDoc     = createAction( RESET_DOC );
 export const autocomplete = createAction( AUTOCOMPLETE );
 export const changeName   = createAction( CHANGE_NAME );
 export const addTag       = createAction( ADD_TAG );
-export const deleteTag    = createAction( DELETE_TAG );
+export const removeTag    = createAction( REMOVE_TAG );
+export const apiAddTag    = createAction( ADD_TAG, api.addDocTag );
+
+export const apiRemoveTag = createAction( REMOVE_TAG, ( docID, tagID ) =>
+    api.removeDocTag( docID, tagID ).then( () => ( { id : tagID } ) ) );
 
 
 // -------------------------------------------------------------------------- //
@@ -89,7 +93,7 @@ function handleAddTag( state, action )
 
         doc :
         {
-            tags : { $push : [{ name : action.payload }] }
+            tags : { $push : [action.payload] }
         }
     };
 
@@ -97,9 +101,9 @@ function handleAddTag( state, action )
 }
 
 
-function handleDeleteTag( state, action )
+function handleRemoveTag( state, action )
 {
-    // find tag to delete in current list
+    // find tag to remove in current list
     const index = _findIndex( state.doc.tags, action.payload );
 
     const change =
@@ -149,8 +153,8 @@ export default function documentReducer( state=defaultState, action )
         case ADD_TAG:
             return handleAddTag( state, action );
 
-        case DELETE_TAG:
-            return handleDeleteTag( state, action );
+        case REMOVE_TAG:
+            return handleRemoveTag( state, action );
 
         default:
             return state;

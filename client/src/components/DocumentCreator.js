@@ -28,9 +28,9 @@ export default class DocumentCreator extends React.Component
             return;
         }
 
-        const { createDoc, doc, history } = this.props;
+        const { apiCreateDoc, doc, history } = this.props;
 
-        createDoc( doc )
+        apiCreateDoc( doc )
             .then( action => history.push( `/doc/${ action.payload.id }` ) );
     }
 
@@ -44,7 +44,7 @@ export default class DocumentCreator extends React.Component
     render()
     {
         const { input, suggestions, doc }                     = this.props;
-        const { autocomplete, addTag, deleteTag, changeName } = this.props;
+        const { autocomplete, addTag, removeTag, changeName } = this.props;
 
         return (
 
@@ -71,7 +71,7 @@ export default class DocumentCreator extends React.Component
                     <DocumentTags
                         tags={ doc.tags }
                         onEditTag={ this.handleEditTag }
-                        onDeleteTag={ deleteTag } />
+                        onDeleteTag={ removeTag } />
 
                 </Container>
 

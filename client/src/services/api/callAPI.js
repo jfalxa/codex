@@ -12,7 +12,16 @@ export default function callAPI( url, options )
     };
 
     return fetch( `/api${ url }`, finalOptions )
-        .then( response => response.json() );
-}
+        .then( response =>
+        {
+            switch ( response.status )
+            {
+                case 200:
+                    return response.json();
 
+                case 204:
+                    return;
+            }
+        } );
+}
 

@@ -23,7 +23,7 @@ export default class Autocomplete extends React.Component
         }
 
         const { value, onSubmit } = this.props;
-        onSubmit( value );
+        onSubmit( { name : value } );
     }
 
 

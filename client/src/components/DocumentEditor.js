@@ -9,9 +9,9 @@ export default class DocumentEditor extends React.Component
 {
     componentDidMount()
     {
-        const { loadDoc, match } = this.props;
+        const { apiLoadDoc, match } = this.props;
 
-        loadDoc( match.params.docID );
+        apiLoadDoc( match.params.docID );
     }
 
 
@@ -22,14 +22,29 @@ export default class DocumentEditor extends React.Component
 
         if ( docID !== prevDocID )
         {
-            this.props.loadDoc( docID )
+            this.props.apiLoadDoc( docID )
         }
     }
+
+
+    handleAddTag = ( tag ) =>
+    {
+        const { doc, apiAddTag } = this.props;
+        apiAddTag( doc.id, tag );
+    }
+
+
+    handleRemoveTag = ( tag ) =>
+    {
+        const { doc, apiRemoveTag } = this.props;
+        apiRemoveTag( doc.id, tag.id );
+    }
+
 
     render()
     {
         const { input, suggestions, doc } = this.props;
-        const { autocomplete, addTag }    = this.props;
+        const { autocomplete, apiAddTag, apiRemoveTag } = this.props;
 
         return (
 
@@ -43,10 +58,12 @@ export default class DocumentEditor extends React.Component
                         value={ input }
                         suggestions={ suggestions }
                         onChange={ autocomplete }
-                        onSubmit={ addTag } />
+                        onSubmit={ this.handleAddTag } />
 
                     <DocumentTags
-                        tags={ doc.tags } />
+                        tags={ doc.tags }
+                        onEditTag={ () => {} }
+                        onDeleteTag={ this.handleRemoveTag } />
 
                 </Container>
 

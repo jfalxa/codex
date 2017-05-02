@@ -72,7 +72,7 @@ export function updateDocTag( docID, tagID, tag )
 }
 
 
-export function deleteDocTag( docID, tagID )
+export function removeDocTag( docID, tagID )
 {
     const options =
     {
