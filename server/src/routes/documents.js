@@ -12,7 +12,7 @@ documents.delete( '/:docID', documentsCtrl.deleteDocument );
 
 documents.post( '/:docID/tags', documentsCtrl.addDocumentTag );
 documents.put( '/:docID/tags/:tagID', documentsCtrl.updateDocumentTag );
-documents.delete( '/:docID/tags/:tagID', documentsCtrl.deleteDocumentTag );
+documents.delete( '/:docID/tags/:tagID', documentsCtrl.removeDocumentTag );
 
 
 module.exports = documents;

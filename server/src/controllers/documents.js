@@ -48,7 +48,7 @@ exports.updateDocument = function updateDocument( req, res, next )
     const { name } = req.body;
 
     Document.updateDocument( req.params.docID, { name } )
-        .then( () => res.status( 200 ).end() )
+        .then( () => res.status( 204 ).end() )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
 
@@ -56,7 +56,7 @@ exports.updateDocument = function updateDocument( req, res, next )
 exports.deleteDocument = function deleteDocument( req, res, next )
 {
     Document.deleteDocument( req.params.docID )
-        .then( () => res.status( 200 ).end() )
+        .then( () => res.status( 204 ).end() )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
 
@@ -65,12 +65,12 @@ exports.addDocumentTag = function addDocumentTag( req, res, next )
 {
     let tag;
 
-    const { docID } = req.params.docID;
+    const { docID } = req.params;
 
     Tag.createMissingTag( req.body )
         .then( data => ( tag = data ) )
-        .then( () => DocTag.addDocumentTag( docID, tag.id ) )
-        .then( () => res.status( 200 ).end() )
+        .then( () => DocTag.addDocTag( docID, tag.id ) )
+        .then( () => res.status( 200 ).json( Object.assign( tag, req.body ) ) )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
 
@@ -80,16 +80,16 @@ exports.updateDocumentTag = function updateDocumentTag( req, res, next )
     const { docID, tagID } = req.params;
 
     DocTag.updateDocTag( docID, tagID, req.body.id )
-        .then( () => res.status( 200 ).end() )
+        .then( () => res.status( 204 ).end() )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
 
 
-exports.deleteDocumentTag = function deleteDocumentTag( req, res, next )
+exports.removeDocumentTag = function removeDocumentTag( req, res, next )
 {
     const { docID, tagID } = req.params;
 
-    DocTag.deleteDocTag( docID, tagID )
-        .then( () => res.status( 200 ).end() )
+    DocTag.removeDocTag( docID, tagID )
+        .then( () => res.status( 204 ).end() )
         .catch( error => res.status( 500 ).json( { error } ) );
 };

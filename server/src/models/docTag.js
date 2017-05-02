@@ -17,7 +17,7 @@ exports.addDocTag = function addDocTag( docID, tagID )
     const query = 'INSERT INTO doc_tags ( document_id, tag_id )'
         + ' VALUES ( $1, $2 )';
 
-    return db.one( query, [docID, tagID] );
+    return db.none( query, [docID, tagID] );
 };
 
 
@@ -49,7 +49,7 @@ exports.updateDocTag = function updateDocTag( docID, oldTagID, newTagID )
 };
 
 
-exports.deleteDocTag = function deleteDocTag( docID, tagID )
+exports.removeDocTag = function removeDocTag( docID, tagID )
 {
     const query = 'DELETE FROM doc_tags'
         + ' WHERE document_id = $1'
