@@ -9,6 +9,7 @@
   "dependencies": {
     "immutability-helper": "^2.1.2",
     "lodash": "^4.17.4",
+    "react-hotkeys": "^0.9.0",
     "react-redux": "^5.0.4",
     "react-router-dom": "next",
     "redux": "^3.6.0",

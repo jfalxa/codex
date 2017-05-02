@@ -35,15 +35,9 @@ export default class DocumentCreator extends React.Component
     }
 
 
-    handleEditTag = ( index ) =>
-    {
-
-    }
-
-
     render()
     {
-        const { input, suggestions, doc }                     = this.props;
+        const { fragment, suggestions, doc }                     = this.props;
         const { autocomplete, addTag, removeTag, changeName } = this.props;
 
         return (
@@ -63,14 +57,14 @@ export default class DocumentCreator extends React.Component
                 <Container columns>
 
                     <Autocomplete
-                        value={ input }
+                        value={ fragment }
                         suggestions={ suggestions }
-                        onChange={ autocomplete }
+                        onChange={ apiAutocomplete }
                         onSubmit={ addTag } />
 
                     <DocumentTags
                         tags={ doc.tags }
-                        onEditTag={ this.handleEditTag }
+                        onEditTag={ () => {} }
                         onDeleteTag={ removeTag } />
 
                 </Container>

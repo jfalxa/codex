@@ -43,7 +43,7 @@ export default class DocumentEditor extends React.Component
 
     render()
     {
-        const { input, suggestions, doc } = this.props;
+        const { fragment, suggestions, doc } = this.props;
         const { autocomplete, apiAddTag, apiRemoveTag } = this.props;
 
         return (
@@ -55,7 +55,7 @@ export default class DocumentEditor extends React.Component
                 <Container columns>
 
                     <Autocomplete
-                        value={ input }
+                        value={ fragment }
                         suggestions={ suggestions }
                         onChange={ autocomplete }
                         onSubmit={ this.handleAddTag } />
