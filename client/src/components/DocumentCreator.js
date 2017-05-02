@@ -37,7 +37,7 @@ export default class DocumentCreator extends React.Component
 
     render()
     {
-        const { fragment, suggestions, doc }                     = this.props;
+        const { fragment, suggestions, doc }                  = this.props;
         const { autocomplete, addTag, removeTag, changeName } = this.props;
 
         return (
@@ -59,7 +59,7 @@ export default class DocumentCreator extends React.Component
                     <Autocomplete
                         value={ fragment }
                         suggestions={ suggestions }
-                        onChange={ apiAutocomplete }
+                        onChange={ autocomplete }
                         onSubmit={ addTag } />
 
                     <DocumentTags

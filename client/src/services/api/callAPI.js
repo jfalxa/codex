@@ -1,3 +1,10 @@
+function isJSON( response )
+{
+    const contentType = response.headers.get( 'content-type' );
+    return ( contentType && contentType.indexOf( 'application/json' ) !== -1 );
+}
+
+
 export default function callAPI( url, options )
 {
     const finalOptions =
@@ -14,14 +21,12 @@ export default function callAPI( url, options )
     return fetch( `/api${ url }`, finalOptions )
         .then( response =>
         {
-            switch ( response.status )
+            if ( isJSON( response ) )
             {
-                case 200:
-                    return response.json();
-
-                case 204:
-                    return;
+                return response.json();
             }
+
+            return response;
         } );
 }
 
