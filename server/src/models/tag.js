@@ -82,7 +82,8 @@ exports.deleteTag = function deleteTag( tagID )
 exports.findTag = function findTag( fragment )
 {
     const query = 'SELECT * FROM tags'
-        + ' WHERE $1 <% name'
+        + ' WHERE length( name ) < 50'
+        + ' AND $1 <% name'
         + ' ORDER BY similarity( $1, name ) DESC';
 
     return db.any( query, fragment );
