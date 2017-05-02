@@ -82,8 +82,8 @@ exports.deleteTag = function deleteTag( tagID )
 exports.findTag = function findTag( fragment )
 {
     const query = 'SELECT * FROM tags'
-        + ' WHERE similarity( name, $1 ) > 0.3'
-        + ' ORDER BY similarity( name, $1 ) DESC';
+        + ' WHERE $1 <% name'
+        + ' ORDER BY similarity( $1, name ) DESC';
 
     return db.any( query, fragment );
 };
