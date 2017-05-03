@@ -1,6 +1,3 @@
-const _filter = require( 'lodash/filter' );
-const _reject = require( 'lodash/reject' );
-
 const db  = require( '../services/db' );
 const pgp = require( 'pg-promise' )( { capSQL : true } );
 
@@ -9,9 +6,9 @@ exports.createTag = function createTag( tag )
 {
     const query = 'INSERT INTO tags ( name )'
         + ' VALUES ( $1 )'
-        + ' RETURNING id';
+        + ' ON CONFLICT( name ) DO NOTHING';
 
-    return db.one( query, tag.name );
+    return db.oneOrNone( query, tag );
 };
 
 
@@ -19,35 +16,14 @@ exports.createManyTags = function createManyTags( manyTags )
 {
     if ( manyTags.length === 0 )
     {
-        return Promise.resolve( [] );
+        return Promise.resolve();
     }
 
     // batch all the tag insertion in one query
     const query = pgp.helpers.insert( manyTags, ['name'], 'tags' )
-        + ' RETURNING id';
+        + ' ON CONFLICT( name ) DO NOTHING';
 
-    return db.any( query );
-};
-
-
-exports.createMissingTag = function createMissingTag( tag )
-{
-    if ( tag.id )
-    {
-        return Promise.resolve( tag );
-    }
-
-    return exports.createTag( tag );
-};
-
-
-exports.createManyMissingTags = function createManyMissingTags( tags )
-{
-    const existingTags = _filter( tags, 'id' );
-    const missingTags  = _reject( tags, 'id' );
-
-    return exports.createManyTags( missingTags )
-        .then( newTags => existingTags.concat( newTags ) );
+    return db.none( query );
 };
 
 

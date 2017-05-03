@@ -12,29 +12,31 @@ exports.getDocTags = function getDocTags( docID )
 };
 
 
-exports.addDocTag = function addDocTag( docID, tagID )
+exports.addDocTag = function addDocTag( docID, tag )
 {
     const query = 'INSERT INTO doc_tags ( document_id, tag_id )'
-        + ' VALUES ( $1, $2 )';
+        + ' SELECT $1, t.id FROM tags t'
+        + ' WHERE t.name = $2'
+        + ' RETURNING tag_id';
 
-    return db.none( query, [docID, tagID] );
+    return db.one( query, [docID, tag] );
 };
 
 
-exports.addManyDocTags = function addManyDocTags( docID, manyTagIDs )
+exports.addManyDocTags = function addManyDocTags( docID, manyTags )
 {
-    if ( manyTagIDs.length === 0 )
+    if ( manyTags.length === 0 )
     {
-        return Promise.resolve( [] );
+        return Promise.resolve();
     }
 
-    // prepare each row that will be added to the table
-    const values = manyTagIDs.map( tagID => ( { document_id : docID, tag_id : tagID } ) );
+    const tagNames = manyTags.map( tag => tag.name );
 
-    // batch all the doc tag insertion in one query
-    const query = pgp.helpers.insert( values, ['document_id', 'tag_id'], 'doc_tags' );
+    const query = 'INSERT INTO doc_tags ( document_id, tag_id )'
+        + ' SELECT $1, t.id FROM tags t'
+        + ' WHERE t.name IN ( $2:csv )';
 
-    return db.any( query );
+    return db.none( query, [docID, tagNames] );
 };
 
 

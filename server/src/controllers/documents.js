@@ -6,15 +6,13 @@ const DocTag   = require( '../models/docTag' );
 exports.createDocument = function createDocument( req, res, next )
 {
     let docID;
-    let tagIDs;
 
     const { name, tags } = req.body;
 
     Document.createDocument( name )
         .then( data => ( docID = data.id ) )
-        .then( () => Tag.createManyMissingTags( tags ) )
-        .then( data => ( tagIDs = data.map( tag => tag.id ) ) )
-        .then( () => DocTag.addManyDocTags( docID, tagIDs ) )
+        .then( () => Tag.createManyTags( tags ) )
+        .then( () => DocTag.addManyDocTags( docID, tags ) )
         .then( () => res.status( 201 ).json( { id : docID } ) )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
@@ -63,14 +61,12 @@ exports.deleteDocument = function deleteDocument( req, res, next )
 
 exports.addDocumentTag = function addDocumentTag( req, res, next )
 {
-    let tag;
+    const { docID }    = req.params;
+    const { name:tag } = req.body;
 
-    const { docID } = req.params;
-
-    Tag.createMissingTag( req.body )
-        .then( data => ( tag = data ) )
-        .then( () => DocTag.addDocTag( docID, tag.id ) )
-        .then( () => res.status( 200 ).json( Object.assign( tag, req.body ) ) )
+    Tag.createTag( tag )
+        .then( () => DocTag.addDocTag( docID, tag ) )
+        .then( data => res.status( 201 ).json( { id : data.tag_id, name : tag } ) )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
 
