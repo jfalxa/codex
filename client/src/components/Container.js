@@ -1,6 +1,21 @@
 import styled from 'styled-components';
 
 
+function flex( props )
+{
+    if ( props.fill === true )
+    {
+        return 1;
+    }
+    else if ( props.fill > 0 )
+    {
+        return props.fill;
+    }
+
+    return 'initial';
+}
+
+
 function justifyContent( props )
 {
     if ( props.mainStart )        return 'flex-start';
@@ -27,7 +42,7 @@ const Container = styled.div`
 
     display:            ${ p => p.inline ? 'inline-flex' : 'flex' };
     box-sizing:         border-box;
-    flex:               ${ p => p.fill ? 1 : 'initial' };
+    flex:               ${ flex };
     flex-direction:     ${ p => p.columns ? 'row' : 'column' };
     justify-content:    ${ justifyContent };
     align-items:        ${ alignItems };
