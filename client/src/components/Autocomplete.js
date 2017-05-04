@@ -4,8 +4,27 @@ import { HotKeys } from 'react-hotkeys';
 import Container from './Container';
 
 
+function Suggestion( { text, highlighted } )
+{
+    return (
+
+        <li style={ { fontWeight : ( highlighted ? 'bold' : 'normal' ) } }>
+            { text }
+        </li>
+
+    );
+}
+
+
 export default class Autocomplete extends React.Component
 {
+    static defaultProps =
+    {
+        renderInput      : 'input',
+        renderSuggestion : Suggestion
+    }
+
+
     state =
     {
         highlighted : -1
@@ -36,7 +55,7 @@ export default class Autocomplete extends React.Component
         onChange( value );
         this.resetHighlight();
 
-        if ( value.length > 2 )
+        if ( value.length > 1 )
         {
             getSuggestions( value );
         }
@@ -71,23 +90,22 @@ export default class Autocomplete extends React.Component
 
     renderSuggestions()
     {
-        const { suggestions } = this.props;
         const { highlighted } = this.state;
+        const { suggestions, renderSuggestion:Suggestion } = this.props;
 
         return suggestions.map( ( suggestion, i ) =>
         (
-            <li
+            <Suggestion
                 key={ i }
-                style={ { fontWeight : ( i === highlighted ) ? 'bold' : 'normal' } }>
-                { suggestion.name }
-            </li>
+                text={ suggestion.name }
+                highlighted={ ( highlighted === i ) } />
         ) );
     }
 
 
     render()
     {
-        const { value } = this.props;
+        const { value, renderInput:Input } = this.props;
 
         return (
 
@@ -95,10 +113,7 @@ export default class Autocomplete extends React.Component
 
                 <Container rows>
 
-                    <input
-                        autoComplete="off"
-                        name="tag"
-                        placeholder="Enter a tag..."
+                    <Input
                         value={ value }
                         onChange={ this.handleChange } />
 
