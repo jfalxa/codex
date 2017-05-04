@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import DocumentCreator from './DocumentCreator';
-import { apiCreateDoc, resetDoc, autocomplete, changeName, addTag, removeTag } from '../reducers/document';
+import { apiCreateDoc, resetDoc, apiAutocomplete, setFragment, changeName, addTag, removeTag } from '../reducers/document';
 
 
 export function selectDocumentCreator( state )
@@ -14,7 +14,8 @@ const actionCreators =
 {
     apiCreateDoc,
     resetDoc,
-    autocomplete,
+    apiAutocomplete,
+    setFragment,
     changeName,
     addTag,
     removeTag

@@ -14,69 +14,58 @@ export default class Autocomplete extends React.Component
 
     handlers =
     {
-        up    : e => this.handleHighlight( -1 ),
-        down  : e => this.handleHighlight( +1 ),
-        esc   : e => this.handleHighlight( null ),
-        tab   : e => this.handleCompleteHighlight( e ),
-        enter : e => this.handleSubmitAutocomplete()
+        down  : () => this.handleHighlight( +1 ),
+        up    : () => this.handleHighlight( -1 ),
+        esc   : () => this.resetHighlight(),
+        enter : () => this.handleSubmit()
     }
 
 
-    handleChangeAutocomplete = ( e ) =>
+    resetHighlight()
     {
-        const { onChange } = this.props;
-        const value = e.target.value;
-        onChange( value );
-
         this.setState( { highlighted : -1 } );
     }
 
 
-    handleSubmitAutocomplete = ( e ) =>
+    handleChange = ( e ) =>
+    {
+        const { onChange, getSuggestions } = this.props;
+
+        const value = e.target.value;
+
+        onChange( value );
+        this.resetHighlight();
+
+        if ( value.length > 2 )
+        {
+            getSuggestions( value );
+        }
+    }
+
+
+    handleSubmit = () =>
     {
         if ( !this.props.value )
         {
             return;
         }
 
-        const { value, suggestions, onSubmit } = this.props;
-        const { highlighted } = this.state;
+        const { value, onSubmit } = this.props;
 
-        if ( highlighted > -1 )
-        {
-            onSubmit( suggestions[highlighted] );
-        }
-        else
-        {
-            onSubmit( { name : value } );
-        }
+        onSubmit( { name : value } );
+        this.resetHighlight();
     }
 
 
     handleHighlight = ( movement ) =>
     {
-        if ( movement === null )
-        {
-            return this.setState( { highlighted : -1 } );
-        }
-
-        const { suggestions } = this.props;
-        const highlighted     = ( this.state.highlighted + movement + suggestions.length ) % suggestions.length;
-
-        this.setState( { highlighted } );
-    }
-
-
-    handleCompleteHighlight = ( e ) =>
-    {
-        e.preventDefault();
-
         const { suggestions, onChange } = this.props;
-        const { highlighted } = this.state;
 
-        this.setState( { highlighted : 0 } );
+        // navigate through suggestions and go back to the first when the end is reached
+        const highlighted = ( this.state.highlighted + movement + suggestions.length ) % suggestions.length;
 
         onChange( suggestions[highlighted].name );
+        this.setState( { highlighted } );
     }
 
 
@@ -98,7 +87,7 @@ export default class Autocomplete extends React.Component
 
     render()
     {
-        const { value, suggestions } = this.props;
+        const { value } = this.props;
 
         return (
 
@@ -111,7 +100,7 @@ export default class Autocomplete extends React.Component
                         name="tag"
                         placeholder="Enter a tag..."
                         value={ value }
-                        onChange={ this.handleChangeAutocomplete } />
+                        onChange={ this.handleChange } />
 
                     { this.renderSuggestions() }
 

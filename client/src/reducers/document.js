@@ -42,20 +42,6 @@ export const apiRemoveTag = createAction( REMOVE_TAG, ( docID, tagID ) =>
     api.removeDocTag( docID, tagID ).then( () => ( { id : tagID } ) ) );
 
 
-export function autocomplete( fragment )
-{
-    return dispatch =>
-    {
-        dispatch( setFragment( fragment ) );
-
-        if ( fragment.length > 2 )
-        {
-            dispatch( apiAutocomplete( fragment ) );
-        }
-    };
-}
-
-
 // -------------------------------------------------------------------------- //
 // STATE MANAGEMENT HELPERS                                                   //
 // -------------------------------------------------------------------------- //
