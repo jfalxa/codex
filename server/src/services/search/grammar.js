@@ -20,9 +20,18 @@ not
 
 word
     = $[a-zA-Z0-9\-]+
+    / \" word \"
+
+user
+    = "@" word
+
+hash
+    = "#" word
 
 set
     = $ word
+    / $ user
+    / $ hash
 
 expression
     = union

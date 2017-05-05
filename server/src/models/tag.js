@@ -59,8 +59,9 @@ exports.findTag = function findTag( fragment )
 {
     const query = 'SELECT * FROM tags'
         + ' WHERE length( name ) < 50'
-        + ' AND $1 <% name'
-        + ' ORDER BY similarity( $1, name ) DESC';
+        + ' AND word_similarity( $1, name ) >= 0.5'
+        + ' ORDER BY similarity( $1, name ) DESC'
+        + ' LIMIT 5';
 
     return db.any( query, fragment );
 };
