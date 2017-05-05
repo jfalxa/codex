@@ -111,7 +111,7 @@ test( 'parser: longSet and otherSet', t =>
 } );
 
 
-test( 'parser: @userA and @userB', t =>
+test.skip( 'parser: @userA and @userB', t =>
 {
     const query  = '@userA and @userB';
     const result = ['and', '@userA', '@userB'];
@@ -120,7 +120,7 @@ test( 'parser: @userA and @userB', t =>
 } );
 
 
-test( 'parser: #tagA and #tagB', t =>
+test.skip( 'parser: #tagA and #tagB', t =>
 {
     const query  = '#tagA and #tagB';
     const result = ['and', '#tagA', '#tagB'];
@@ -141,7 +141,16 @@ test( 'parser: number01 and 02number', t =>
 test( 'parser: "String with Spaces" and "Other Spaced String"', t =>
 {
     const query  = '"String with Spaces" and "Other Spaced String"';
-    const result = ['and', 'String with Spaces', "Other Spaced String"];
+    const result = ['and', 'String with Spaces', 'Other Spaced String'];
+
+    t.deepEqual( parse( query ), result );
+} );
+
+
+test( "parser: 'String with Spaces' and 'Other Spaced String'", t =>
+{
+    const query  = "'String with Spaces' and 'Other Spaced String'";
+    const result = ['and', 'String with Spaces', 'Other Spaced String'];
 
     t.deepEqual( parse( query ), result );
 } );

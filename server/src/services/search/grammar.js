@@ -20,18 +20,11 @@ not
 
 word
     = $[a-zA-Z0-9\-]+
-    / \" word \"
-
-user
-    = "@" word
-
-hash
-    = "#" word
+    / '"' str:$[^"]+ '"' { return str }
+    / "'" str:$[^']+ "'" { return str }
 
 set
-    = $ word
-    / $ user
-    / $ hash
+    = word
 
 expression
     = union
@@ -51,7 +44,7 @@ leftprimary
     / prm:primary { return [prm] }
 
 primary
-    = "\(" _ exp:expression _ "\)" { return exp }
+    = "(" _ exp:expression _ ")" { return exp }
     / not _ opd:primary { return ['not', opd] }
     / set
 `;
