@@ -6,12 +6,6 @@ import Container from './Container';
 
 export default class DocumentList extends React.Component
 {
-    componentDidMount()
-    {
-        this.props.loadAllDocs();
-    }
-
-
     render()
     {
         const { documents } = this.props;

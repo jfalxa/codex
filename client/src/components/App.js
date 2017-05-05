@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import Container                from './Container';
 import Topbar                   from './Topbar';
-import ConnectedDocumentList    from './ConnectedDocumentList';
+import ConnectedSearch          from './ConnectedSearch';
 import ConnectedDocumentCreator from './ConnectedDocumentCreator';
 import ConnectedDocumentEditor  from './ConnectedDocumentEditor';
 
@@ -18,7 +18,7 @@ export default class App extends React.Component
 
                 <Topbar />
 
-                <Route exact path="/" component={ ConnectedDocumentList } />
+                <Route exact path="/" component={ ConnectedSearch } />
                 <Route path="/add" component={ ConnectedDocumentCreator } />
                 <Route path="/doc/:docID" component={ ConnectedDocumentEditor } />
 

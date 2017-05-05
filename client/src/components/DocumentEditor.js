@@ -30,7 +30,7 @@ export default class DocumentEditor extends React.Component
     handleAddTag = ( tag ) =>
     {
         const { doc, apiAddTag } = this.props;
-        apiAddTag( doc.id, tag );
+        apiAddTag( doc.id, { name : tag } );
     }
 
 

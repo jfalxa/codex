@@ -35,10 +35,16 @@ export default class DocumentCreator extends React.Component
     }
 
 
+    handleAddTag = ( tag ) =>
+    {
+        this.props.addTag( { name : tag } );
+    }
+
+
     render()
     {
         const { fragment, suggestions, doc } = this.props;
-        const { setFragment, apiAutocomplete, addTag, removeTag, changeName } = this.props;
+        const { setFragment, apiAutocomplete, removeTag, changeName } = this.props;
 
         return (
 
@@ -60,7 +66,7 @@ export default class DocumentCreator extends React.Component
                         value={ fragment }
                         suggestions={ suggestions }
                         onChange={ setFragment }
-                        onSubmit={ addTag }
+                        onSubmit={ this.handleAddTag }
                         getSuggestions={ apiAutocomplete } />
 
                     <DocumentTags

@@ -4,6 +4,13 @@ import { HotKeys } from 'react-hotkeys';
 import Container from './Container';
 
 
+const keyMap =
+{
+    next : ['down', 'tab', 'right'],
+    prev : ['up', 'shift+tab', 'left']
+};
+
+
 function Suggestion( { text, highlighted } )
 {
     return (
@@ -33,8 +40,8 @@ export default class Autocomplete extends React.Component
 
     handlers =
     {
-        down  : () => this.handleHighlight( +1 ),
-        up    : () => this.handleHighlight( -1 ),
+        next  : e => this.handleHighlight( +1, e ),
+        prev  : e => this.handleHighlight( -1, e ),
         esc   : () => this.resetHighlight(),
         enter : () => this.handleSubmit()
     }
@@ -53,37 +60,35 @@ export default class Autocomplete extends React.Component
         const value = e.target.value;
 
         onChange( value );
+        getSuggestions( value );
         this.resetHighlight();
-
-        if ( value.length > 1 )
-        {
-            getSuggestions( value );
-        }
     }
 
 
     handleSubmit = () =>
     {
-        if ( !this.props.value )
-        {
-            return;
-        }
-
         const { value, onSubmit } = this.props;
 
-        onSubmit( { name : value } );
+        onSubmit( value );
         this.resetHighlight();
     }
 
 
-    handleHighlight = ( movement ) =>
+    handleHighlight = ( movement, e ) =>
     {
+        e.preventDefault()
+
+        if ( this.props.suggestions.length === 0 )
+        {
+            return;
+        }
+
         const { suggestions, onChange } = this.props;
 
         // navigate through suggestions and go back to the first when the end is reached
         const highlighted = ( this.state.highlighted + movement + suggestions.length ) % suggestions.length;
 
-        onChange( suggestions[highlighted].name );
+        onChange( suggestions[highlighted].name, true );
         this.setState( { highlighted } );
     }
 
@@ -109,7 +114,7 @@ export default class Autocomplete extends React.Component
 
         return (
 
-            <HotKeys handlers={ this.handlers }>
+            <HotKeys keyMap={ keyMap } handlers={ this.handlers }>
 
                 <Container rows>
 

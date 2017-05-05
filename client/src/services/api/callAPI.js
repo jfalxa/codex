@@ -21,6 +21,11 @@ export default function callAPI( url, options )
     return fetch( `/api${ url }`, finalOptions )
         .then( response =>
         {
+            if ( !response.ok )
+            {
+                throw new Error( response.status );
+            }
+
             if ( isJSON( response ) )
             {
                 return response.json();

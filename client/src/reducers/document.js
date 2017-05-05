@@ -70,7 +70,7 @@ function handleSetFragment( state, action )
         fragment : { $set : action.payload },
 
         // empty suggestion list if the fragment is too small
-        suggestions : ( action.payload.length <= 2 )
+        suggestions : ( action.payload.length === 0 )
             ? { $set : [] }
             : {}
     };
@@ -81,6 +81,11 @@ function handleSetFragment( state, action )
 
 function handleAutocomplete( state, action )
 {
+    if ( action.error )
+    {
+        return state;
+    }
+
     const change =
     {
         suggestions : { $set : action.payload }
