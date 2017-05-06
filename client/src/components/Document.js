@@ -3,12 +3,12 @@ import React from 'react';
 import Container from './Container';
 
 
-function Tag( { name, onEdit, onDelete } )
+function Tag( { name, onEdit, onRemove } )
 {
     return (
 
         <li>
-            <button onClick={ onDelete }>X</button>
+            <button onClick={ onRemove }>X</button>
             <span>{ name }</span>
         </li>
 
@@ -20,14 +20,14 @@ export default class Document extends React.Component
 {
     renderTags()
     {
-        const { tags, onDeleteTag } = this.props;
+        const { tags, onRemoveTag } = this.props;
 
         return tags.map( ( tag, i ) =>
         (
             <Tag
                 key={ i }
                 name={ tag.name }
-                onDelete={ () => onDeleteTag( tag ) } />
+                onRemove={ () => onRemoveTag( tag ) } />
         ) );
     }
 

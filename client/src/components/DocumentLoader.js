@@ -26,15 +26,24 @@ export default class DocumentLoader extends React.Component
     }
 
 
+    handleRemoveTag = ( tag ) =>
+    {
+        const { doc, apiRemoveTag } = this.props;
+
+        apiRemoveTag( doc.id, tag.id );
+    }
+
+
     render()
     {
-        const { doc } = this.props;
+        const { doc, apiRemoveTag } = this.props;
 
         return (
 
             <Document
                 name={ doc.name }
-                tags={ doc.tags } />
+                tags={ doc.tags }
+                onRemoveTag={ this.handleRemoveTag } />
 
         );
     }
