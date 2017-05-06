@@ -32,9 +32,8 @@ export const setHighlight    = createAction( SET_HIGHLIGHT );
 
 function handleSearchDocs( state, action )
 {
-    const search = state.search + state.fragment;
-
-    if ( search && action.error )
+    // ignore badly formatted search query results
+    if ( action.error )
     {
         return state;
     }
@@ -42,10 +41,7 @@ function handleSearchDocs( state, action )
     const change =
     {
         highlighted : { $set : 0 },
-
-        documents : search
-            ? { $set : action.payload }
-            : { $set : [] }
+        documents   : { $set : action.payload }
     };
 
     return update( state, change );
@@ -54,6 +50,8 @@ function handleSearchDocs( state, action )
 
 function handleAutocomplete( state, action )
 {
+    // when the user removes a term from search an autocomplete query will be
+    // triggered with the wrong fragment. This condition ignores it.
     if ( !state.fragment )
     {
         return state;
@@ -86,11 +84,7 @@ function handleSetFragment( state, action )
 {
     const change =
     {
-        fragment : { $set : action.payload },
-
-        suggestions : ( action.payload.length === 0 )
-            ? { $set : [] }
-            : {}
+        fragment : { $set : action.payload }
     };
 
     return update( state, change );

@@ -7,7 +7,7 @@ export function searchDocs( query )
 {
     if ( !query )
     {
-        return;
+        return Promise.resolve( [] );
     }
 
     const params = qs.stringify( { query } );

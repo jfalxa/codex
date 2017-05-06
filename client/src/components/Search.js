@@ -101,12 +101,9 @@ export default class Search extends React.Component
 
     getSuggestions = ( value ) =>
     {
-        const fragment = this.getFragment( value );
+        const fragment = this.getFragment( value ).trim();
 
-        if ( fragment.length > 0 )
-        {
-            this.props.apiAutocomplete( fragment );
-        }
+        this.props.apiAutocomplete( fragment );
     }
 
 

@@ -1,5 +1,6 @@
 import update           from 'immutability-helper';
-import _findIndex       from 'lodash/findIndex';
+import _find            from 'lodash/find';
+import _reject          from 'lodash/reject';
 import { createAction } from 'redux-actions';
 
 import * as api from '../services/api';
@@ -37,7 +38,6 @@ export const setFragment     = createAction( SET_FRAGMENT );
 export const apiAutocomplete = createAction( AUTOCOMPLETE, api.autocomplete );
 export const apiAddTag       = createAction( ADD_TAG, api.addDocTag );
 
-
 export const apiRemoveTag = createAction( REMOVE_TAG, ( docID, tagID ) =>
     api.removeDocTag( docID, tagID ).then( () => ( { id : tagID } ) ) );
 
@@ -68,11 +68,6 @@ function handleSetFragment( state, action )
     const change =
     {
         fragment : { $set : action.payload },
-
-        // empty suggestion list if the fragment is too small
-        suggestions : ( action.payload.length === 0 )
-            ? { $set : [] }
-            : {}
     };
 
     return update( state, change );
@@ -81,11 +76,6 @@ function handleSetFragment( state, action )
 
 function handleAutocomplete( state, action )
 {
-    if ( action.error )
-    {
-        return state;
-    }
-
     const change =
     {
         suggestions : { $set : action.payload }
@@ -111,6 +101,10 @@ function handleChangeName( state, action )
 
 function handleAddTag( state, action )
 {
+    // make sure we add tags only if they're not already added
+    const tag    = action.payload;
+    const hasTag = Boolean( _find( state.doc.tags, tag ) );
+
     const change =
     {
         fragment    : { $set : '' },
@@ -118,7 +112,9 @@ function handleAddTag( state, action )
 
         doc :
         {
-            tags : { $push : [action.payload] }
+            tags : !hasTag
+                ? { $push : [tag] }
+                : {}
         }
     };
 
@@ -128,14 +124,14 @@ function handleAddTag( state, action )
 
 function handleRemoveTag( state, action )
 {
-    // find tag to remove in current list
-    const index = _findIndex( state.doc.tags, action.payload );
+    // remove all tags matching what's specified in the action
+    const tags = _reject( state.doc.tags, action.payload );
 
     const change =
     {
         doc :
         {
-            tags : { $splice : [[index, 1]] }
+            tags : { $set : tags }
         }
     };
 
@@ -147,8 +143,8 @@ function handleRemoveTag( state, action )
 // REDUCER                                                                    //
 // -------------------------------------------------------------------------- //
 
-const defaultState = {
-
+const defaultState =
+{
     fragment    : '', // contents of the tag input
     suggestions : [], // list of suggestions for the current input
 
