@@ -41,6 +41,8 @@ function handleSearchDocs( state, action )
 
     const change =
     {
+        highlighted : { $set : 0 },
+
         documents : search
             ? { $set : action.payload }
             : { $set : [] }
