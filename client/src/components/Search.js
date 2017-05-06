@@ -46,7 +46,7 @@ export default class Search extends React.Component
     {
         const { search, setFragment, setSearch, apiSearchDocs } = this.props;
 
-        // 1. Change is coming from suggestions : append it to the current search
+        // Change is coming from suggestions : append it to the current search
         if ( isSuggestion )
         {
             const suggestion = value.includes( ' ' )
@@ -60,18 +60,22 @@ export default class Search extends React.Component
         {
             const fragment = this.getFragment( value );
 
+            // Search is empty
             if ( value.length === 0 )
             {
                 setSearch( '' );
             }
+            // User is removing words from search
             else if ( value.length < search.length )
             {
                 setSearch( search.replace( LAST_WORD_RX, '' ) );
             }
+            // A new search term was added so we update the search
             else if ( NEW_TERM_RX.test( fragment ) )
             {
                 setSearch( value );
             }
+            // User is editing last search term
             else
             {
                 setFragment( fragment );
