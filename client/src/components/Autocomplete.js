@@ -55,8 +55,12 @@ export default class Autocomplete extends React.Component
         const value = e.target.value;
 
         onChange( value );
-        getSuggestions( value );
         this.resetHighlight();
+
+        if ( value )
+        {
+            getSuggestions( value );
+        }
     }
 
 
@@ -91,9 +95,9 @@ export default class Autocomplete extends React.Component
     renderSuggestions()
     {
         const { highlighted } = this.state;
-        const { suggestions, renderSuggestion:Suggestion } = this.props;
+        const { value, suggestions, renderSuggestion:Suggestion } = this.props;
 
-        return suggestions.map( ( suggestion, i ) =>
+        return value && suggestions.map( ( suggestion, i ) =>
         (
             <Suggestion
                 key={ i }
