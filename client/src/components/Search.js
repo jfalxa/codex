@@ -122,8 +122,6 @@ export default class Search extends React.Component
                     onSubmit={ this.handleSubmit }
                     getSuggestions={ this.getSuggestions } />
 
-                <br/>
-
                 <DocumentList
                     highlighted={ highlighted }
                     documents={ documents }
