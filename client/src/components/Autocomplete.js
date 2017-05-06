@@ -1,14 +1,8 @@
 import React       from 'react';
 import { HotKeys } from 'react-hotkeys';
 
-import Container from './Container';
-
-
-const keyMap =
-{
-    next : ['down', 'tab', 'right'],
-    prev : ['up', 'shift+tab', 'left']
-};
+import Container     from './Container';
+import circleMotion from '../utils/circleMotion';
 
 
 function Suggestion( { text, highlighted } )
@@ -86,7 +80,7 @@ export default class Autocomplete extends React.Component
         const { suggestions, onChange } = this.props;
 
         // navigate through suggestions and go back to the first when the end is reached
-        const highlighted = ( this.state.highlighted + movement + suggestions.length ) % suggestions.length;
+        const highlighted = circleMotion( this.state.highlighted, suggestions.length, movement );
 
         onChange( suggestions[highlighted].name, true );
         this.setState( { highlighted } );
@@ -114,7 +108,7 @@ export default class Autocomplete extends React.Component
 
         return (
 
-            <HotKeys keyMap={ keyMap } handlers={ this.handlers }>
+            <HotKeys handlers={ this.handlers }>
 
                 <Container rows>
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Container    from './Container';
 import Autocomplete from './Autocomplete';
-import DocumentTags from './DocumentTags';
+import Document from './Document';
 
 
 export default class DocumentCreator extends React.Component
@@ -31,7 +31,7 @@ export default class DocumentCreator extends React.Component
         const { apiCreateDoc, doc, history } = this.props;
 
         apiCreateDoc( doc )
-            .then( action => history.push( `/doc/${ action.payload.id }` ) );
+            .then( action => history.push( `/docs/${ action.payload.id }` ) );
     }
 
 
@@ -69,7 +69,8 @@ export default class DocumentCreator extends React.Component
                         onSubmit={ this.handleAddTag }
                         getSuggestions={ apiAutocomplete } />
 
-                    <DocumentTags
+                    <Document
+                        name={ doc.name }
                         tags={ doc.tags }
                         onDeleteTag={ removeTag } />
 

@@ -3,7 +3,6 @@ import React from 'react';
 import Container from './Container';
 
 
-
 function Tag( { name, onEdit, onDelete } )
 {
     return (
@@ -17,7 +16,7 @@ function Tag( { name, onEdit, onDelete } )
 }
 
 
-export default class DocumentTags extends React.Component
+export default class Document extends React.Component
 {
     renderTags()
     {
@@ -35,11 +34,13 @@ export default class DocumentTags extends React.Component
 
     render()
     {
-        const { name, tags } = this.props;
+        const { name } = this.props;
 
         return (
 
             <Container rows>
+
+                <b>{ name }</b>
 
                 <ul>
                     { this.renderTags() }
@@ -50,3 +51,4 @@ export default class DocumentTags extends React.Component
         );
     }
 }
+

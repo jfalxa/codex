@@ -108,7 +108,8 @@ export default class Search extends React.Component
 
     render()
     {
-        const { documents, search, fragment, suggestions, setFragment, apiSearchDocs } = this.props;
+        const { highlighted, documents, search, fragment, suggestions } = this.props;
+        const { setFragment, setHighlight, apiSearchDocs } = this.props;
 
         return (
 
@@ -123,7 +124,10 @@ export default class Search extends React.Component
 
                 <br/>
 
-                <DocumentList documents={ documents } />
+                <DocumentList
+                    highlighted={ highlighted }
+                    documents={ documents }
+                    onHighlight={ setHighlight } />
 
             </Container>
 

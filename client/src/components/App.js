@@ -20,7 +20,7 @@ export default class App extends React.Component
 
                 <Route exact path="/" component={ ConnectedSearch } />
                 <Route path="/add" component={ ConnectedDocumentCreator } />
-                <Route path="/doc/:docID" component={ ConnectedDocumentEditor } />
+                <Route path="/docs/:docID" component={ ConnectedDocumentEditor } />
 
             </Container>
 

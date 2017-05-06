@@ -1,32 +1,13 @@
 import React from 'react';
 
-import Container    from './Container';
-import Autocomplete from './Autocomplete';
-import DocumentTags from './DocumentTags';
+import Container               from './Container';
+import Autocomplete            from './Autocomplete';
+import Document                from './Document';
+import ConnectedDocumentLoader from './ConnectedDocumentLoader';
 
 
 export default class DocumentEditor extends React.Component
 {
-    componentDidMount()
-    {
-        const { apiLoadDoc, match } = this.props;
-
-        apiLoadDoc( match.params.docID );
-    }
-
-
-    componentDidUpdate( prevProps )
-    {
-        const { docID }           = this.props.match.params;
-        const { docID:prevDocID } = prevProps.match.params;
-
-        if ( docID !== prevDocID )
-        {
-            this.props.apiLoadDoc( docID )
-        }
-    }
-
-
     handleAddTag = ( tag ) =>
     {
         const { doc, apiAddTag } = this.props;
@@ -34,38 +15,23 @@ export default class DocumentEditor extends React.Component
     }
 
 
-    handleRemoveTag = ( tag ) =>
-    {
-        const { doc, apiRemoveTag } = this.props;
-        apiRemoveTag( doc.id, tag.id );
-    }
-
-
     render()
     {
-        const { fragment, suggestions, doc }   = this.props;
+        const { fragment, suggestions, match } = this.props;
         const { setFragment, apiAutocomplete } = this.props;
 
         return (
 
-            <Container rows>
+            <Container columns>
 
-                <h4>{ doc.name }</h4>
+                <Autocomplete
+                    value={ fragment }
+                    suggestions={ suggestions }
+                    onChange={ setFragment }
+                    onSubmit={ this.handleAddTag }
+                    getSuggestions={ apiAutocomplete } />
 
-                <Container columns>
-
-                    <Autocomplete
-                        value={ fragment }
-                        suggestions={ suggestions }
-                        onChange={ setFragment }
-                        onSubmit={ this.handleAddTag }
-                        getSuggestions={ apiAutocomplete } />
-
-                    <DocumentTags
-                        tags={ doc.tags }
-                        onDeleteTag={ this.handleRemoveTag } />
-
-                </Container>
+                <ConnectedDocumentLoader id={ match.params.docID } />
 
             </Container>
 
