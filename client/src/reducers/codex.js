@@ -30,14 +30,18 @@ export const setFragment     = createAction( SET_FRAGMENT );
 
 function handleSearchDocs( state, action )
 {
-    if ( action.error )
+    const search = state.search + state.fragment;
+
+    if ( search && action.error )
     {
         return state;
     }
 
     const change =
     {
-        documents : { $set : action.payload },
+        documents : search
+            ? { $set : action.payload }
+            : { $set : [] }
     };
 
     return update( state, change );
