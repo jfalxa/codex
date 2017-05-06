@@ -1,7 +1,8 @@
 import React       from 'react';
 import { HotKeys } from 'react-hotkeys';
 
-import Container     from './Container';
+import Container    from './Container';
+import keyMap       from '../constants/keyMap';
 import circleMotion from '../utils/circleMotion';
 
 
@@ -108,7 +109,7 @@ export default class Autocomplete extends React.Component
 
         return (
 
-            <HotKeys handlers={ this.handlers }>
+            <HotKeys keyMap={ keyMap } handlers={ this.handlers }>
 
                 <Container rows>
 

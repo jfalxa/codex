@@ -50,13 +50,15 @@ export default class DocumentList extends React.Component
 
         return (
 
-            <Container columns>
+            <Container fill columns>
 
-                <Container>
+                <Container fill>
                     { this.renderDocuments() }
                 </Container>
 
-                { docID && <ConnectedDocumentLoader id={ docID } /> }
+                <Container fill={ 2 }>
+                    { docID && <ConnectedDocumentLoader id={ docID } /> }
+                </Container>
 
             </Container>
 

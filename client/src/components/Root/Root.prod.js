@@ -1,10 +1,33 @@
 import React                    from 'react';
 import { Provider }             from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { HotKeys }              from 'react-hotkeys';
+import { injectGlobal }         from 'styled-components';
 
 import App    from '../../components/App';
 import keyMap from '../../constants/keyMap';
+
+
+injectGlobal`
+
+    html, body, #main
+    {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #main
+    {
+        display: flex;
+    }
+
+    div[tabindex="-1"]:focus
+    {
+        outline: 0;
+    }
+
+`;
 
 
 export default function RootProd( { store } )
@@ -13,9 +36,7 @@ export default function RootProd( { store } )
 
         <Provider store={ store }>
             <BrowserRouter>
-                <HotKeys keyMap={ keyMap }>
-                    <Route path="/" component={ App } />
-                </HotKeys>
+                <Route path="/" component={ App } />
             </BrowserRouter>
         </Provider>
 

@@ -117,7 +117,7 @@ export default class Search extends React.Component
 
         return (
 
-            <Container>
+            <Container fill rows>
 
                 <Autocomplete
                     value={ search + fragment }
