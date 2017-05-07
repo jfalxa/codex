@@ -1,5 +1,5 @@
 import update           from 'immutability-helper';
-import _find            from 'lodash/find';
+import _some            from 'lodash/some';
 import _reject          from 'lodash/reject';
 import { createAction } from 'redux-actions';
 
@@ -103,7 +103,7 @@ function handleAddTag( state, action )
 {
     // make sure we add tags only if they're not already added
     const tag    = action.payload;
-    const hasTag = Boolean( _find( state.doc.tags, tag ) );
+    const hasTag = _some( state.doc.tags, tag );
 
     const change =
     {
