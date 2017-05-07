@@ -101,11 +101,11 @@ export default class Autocomplete extends React.Component
 
     render()
     {
-        const { value, className, renderInput:Input } = this.props;
+        const { value, className, renderInput:Input, layout } = this.props;
 
         return (
 
-            <HotKeysContainer
+            <HotKeysContainer { ...layout }
                 className={ className }
                 keyMap={ keyMap }
                 handlers={ this.handlers }>

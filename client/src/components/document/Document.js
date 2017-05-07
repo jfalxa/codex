@@ -34,11 +34,11 @@ export default class Document extends React.Component
 
     render()
     {
-        const { name } = this.props;
+        const { name, layout } = this.props;
 
         return (
 
-            <Container rows>
+            <Container { ...layout } rows>
 
                 <b>{ name }</b>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Layout                  from '../layout/Layout';
 import Container               from '../layout/Container';
 import Autocomplete            from '../autocomplete/Autocomplete';
 import ConnectedDocumentLoader from '../connectors/ConnectedDocumentLoader';
@@ -23,14 +24,18 @@ export default class DocumentEditor extends React.Component
 
             <Container columns>
 
-                <Autocomplete
-                    value={ fragment }
-                    suggestions={ suggestions }
-                    onChange={ setFragment }
-                    onSubmit={ this.handleAddTag }
-                    getSuggestions={ apiAutocomplete } />
+                <Layout fill>
+                    <Autocomplete
+                        value={ fragment }
+                        suggestions={ suggestions }
+                        onChange={ setFragment }
+                        onSubmit={ this.handleAddTag }
+                        getSuggestions={ apiAutocomplete } />
+                </Layout>
 
-                <ConnectedDocumentLoader id={ match.params.docID } />
+                <Layout fill={ 2 }>
+                    <ConnectedDocumentLoader id={ match.params.docID } />
+                </Layout>
 
             </Container>
 

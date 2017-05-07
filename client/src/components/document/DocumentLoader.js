@@ -36,11 +36,12 @@ export default class DocumentLoader extends React.Component
 
     render()
     {
-        const { doc, apiRemoveTag } = this.props;
+        const { doc, apiRemoveTag, layout } = this.props;
 
         return (
 
             <Document
+                layout={ layout }
                 name={ doc.name }
                 tags={ doc.tags }
                 onRemoveTag={ this.handleRemoveTag } />
