@@ -3,9 +3,11 @@ import { Route } from 'react-router-dom';
 
 import Container                from './Container';
 import Topbar                   from './Topbar';
-import ConnectedDocumentCreator from './ConnectedDocumentCreator';
-import ConnectedDocumentEditor  from './ConnectedDocumentEditor';
-import ConnectedDocumentList    from './ConnectedDocumentList';
+import ConnectedDocumentCreator from './connectors/ConnectedDocumentCreator';
+import ConnectedDocumentEditor  from './connectors/ConnectedDocumentEditor';
+import ConnectedDocumentList    from './connectors/ConnectedDocumentList';
+
+import '../style/global';
 
 
 export default class App extends React.Component

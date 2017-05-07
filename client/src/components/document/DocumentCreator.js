@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Container    from './Container';
-import Autocomplete from './Autocomplete';
-import Document from './Document';
+import Container    from '../Container';
+import Autocomplete from '../autocomplete/Autocomplete';
+import Document     from './Document';
 
 
 export default class DocumentCreator extends React.Component

@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Container    from './Container';
-import Autocomplete from './Autocomplete';
+import Container    from '../Container';
+import SearchInput  from './SearchInput';
+import Autocomplete from '../autocomplete/Autocomplete';
 
 const LAST_WORD_RX = / *([^" ]+|"[^"]+") *$/;
 const NEW_TERM_RX  = /^ *( |\(|("[\w ]+"|[\w]+) *( |,|\)) *)/;
@@ -91,7 +92,8 @@ export default class Search extends React.Component
                 suggestions={ suggestions }
                 onChange={ this.handleChange }
                 onSubmit={ this.handleSubmit }
-                getSuggestions={ this.getSuggestions } />
+                getSuggestions={ this.getSuggestions }
+                renderInput={ SearchInput } />
 
         );
     }

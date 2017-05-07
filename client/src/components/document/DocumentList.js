@@ -2,8 +2,8 @@ import React       from 'react';
 import { Link }    from 'react-router-dom';
 import { HotKeys } from 'react-hotkeys';
 
-import Container               from './Container';
-import ConnectedDocumentLoader from './ConnectedDocumentLoader';
+import Container               from '../Container';
+import ConnectedDocumentLoader from '../connectors/ConnectedDocumentLoader';
 
 
 function DocumentLink( { id, name, highlighted, onHighlight } )

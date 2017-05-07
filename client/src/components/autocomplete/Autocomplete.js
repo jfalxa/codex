@@ -1,9 +1,9 @@
 import React       from 'react';
 import { HotKeys } from 'react-hotkeys';
 
-import Container    from './Container';
-import keyMap       from '../constants/keyMap';
-import circleMotion from '../utils/circleMotion';
+import Container    from '../Container';
+import keyMap       from '../../constants/keyMap';
+import circleMotion from '../../utils/circleMotion';
 
 
 function Suggestion( { text, highlighted } )
@@ -93,33 +93,36 @@ export default class Autocomplete extends React.Component
         const { highlighted } = this.state;
         const { value, suggestions, renderSuggestion:Suggestion } = this.props;
 
-        return suggestions.map( ( suggestion, i ) =>
+        const suggestionEls = suggestions.map( ( suggestion, i ) =>
         (
             <Suggestion
                 key={ i }
                 text={ suggestion.name }
                 highlighted={ ( highlighted === i ) } />
         ) );
+
+        return ( suggestionEls.length > 0 )
+            ? <ul>{ suggestionEls }</ul>
+            : null;
     }
 
 
     render()
     {
-        const { value, renderInput:Input } = this.props;
+        const { value, className, renderInput:Input } = this.props;
 
         return (
 
-            <HotKeys keyMap={ keyMap } handlers={ this.handlers }>
-
-                <Container rows>
+            <HotKeys
+                className={ className }
+                keyMap={ keyMap }
+                handlers={ this.handlers }>
 
                     <Input
                         value={ value }
                         onChange={ this.handleChange } />
 
                     { this.renderSuggestions() }
-
-                </Container>
 
             </HotKeys>
 

@@ -2,7 +2,7 @@ import React    from 'react';
 import { Link } from 'react-router-dom';
 
 import Container       from './Container';
-import ConnectedSearch from './ConnectedSearch';
+import ConnectedSearch from './connectors/ConnectedSearch';
 
 
 export default function Topbar()

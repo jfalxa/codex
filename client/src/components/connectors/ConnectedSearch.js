@@ -1,8 +1,8 @@
 import { connect }    from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import Search from './Search';
-import { setSearch, setFragment, apiAutocomplete, apiSearchDocs } from '../reducers/codex';
+import Search from '../search/Search';
+import { setSearch, setFragment, apiAutocomplete, apiSearchDocs } from '../../reducers/codex';
 
 
 export function selectSearch( state, props )

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import DocumentEditor from './DocumentEditor';
-import { apiAutocomplete, setFragment, apiAddTag, apiRemoveTag } from '../reducers/document';
+import DocumentEditor from '../document/DocumentEditor';
+import { apiAutocomplete, setFragment, apiAddTag, apiRemoveTag } from '../../reducers/document';
 
 
 export function selectDocumentEditor( state )

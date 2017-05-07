@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import DocumentList     from './DocumentList';
-import { setHighlight } from '../reducers/codex';
+import DocumentList     from '../document/DocumentList';
+import { setHighlight } from '../../reducers/codex';
 
 
 export function selectDocumentList( state )

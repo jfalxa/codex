@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Container               from './Container';
-import Autocomplete            from './Autocomplete';
+import Container               from '../Container';
 import Document                from './Document';
-import ConnectedDocumentLoader from './ConnectedDocumentLoader';
+import Autocomplete            from '../autocomplete/Autocomplete';
+import ConnectedDocumentLoader from '../connectors/ConnectedDocumentLoader';
 
 
 export default class DocumentEditor extends React.Component
