@@ -1,4 +1,5 @@
-import { connect } from 'react-redux';
+import { connect }    from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Search from './Search';
 import { setSearch, setFragment, apiAutocomplete, apiSearchDocs } from '../reducers/codex';
@@ -19,4 +20,4 @@ const actionCreators =
 };
 
 
-export default connect( selectSearch, actionCreators )( Search );
+export default withRouter( connect( selectSearch, actionCreators )( Search ) );

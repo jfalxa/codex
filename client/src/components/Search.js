@@ -61,12 +61,14 @@ export default class Search extends React.Component
 
     handleSubmit = () =>
     {
-        const { search, fragment, setSearch, apiSearchDocs } = this.props;
+        const { search, fragment, history, setSearch, apiSearchDocs } = this.props;
 
         const newSearch = ( search + fragment );
 
         setSearch( newSearch );
         apiSearchDocs( newSearch );
+
+        history.push( '/' );
     }
 
 
