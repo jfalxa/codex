@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Container from '../Container';
 import Document  from './Document';
+import Container from '../layout/Container';
 
 
 export default class DocumentLoader extends React.Component

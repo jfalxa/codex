@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Container               from '../Container';
-import Document                from './Document';
+import Container               from '../layout/Container';
 import Autocomplete            from '../autocomplete/Autocomplete';
 import ConnectedDocumentLoader from '../connectors/ConnectedDocumentLoader';
 

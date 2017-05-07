@@ -2,7 +2,7 @@ import React       from 'react';
 import { Link }    from 'react-router-dom';
 import { HotKeys } from 'react-hotkeys';
 
-import Container               from '../Container';
+import Container               from '../layout/Container';
 import ConnectedDocumentLoader from '../connectors/ConnectedDocumentLoader';
 
 

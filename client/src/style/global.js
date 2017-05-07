@@ -13,19 +13,29 @@ injectGlobal`
         height: 100%;
     }
 
+
+    *
+    {
+        font-family: ${ bodyFont };
+    }
+
+
     #main
     {
         display: flex;
     }
 
-    #main *
-    {
-        font-family: ${ bodyFont };
-    }
 
     div[tabindex="-1"]:focus
     {
         outline: 0;
+    }
+
+
+    ul
+    {
+        margin: 0;
+        padding: 0;
     }
 
 `;

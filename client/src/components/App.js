@@ -1,8 +1,8 @@
 import React     from 'react';
 import { Route } from 'react-router-dom';
 
-import Container                from './Container';
 import Topbar                   from './Topbar';
+import Container                from './layout/Container';
 import ConnectedDocumentCreator from './connectors/ConnectedDocumentCreator';
 import ConnectedDocumentEditor  from './connectors/ConnectedDocumentEditor';
 import ConnectedDocumentList    from './connectors/ConnectedDocumentList';

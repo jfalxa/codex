@@ -1,21 +1,9 @@
-import React       from 'react';
-import { HotKeys } from 'react-hotkeys';
+import React from 'react';
 
-import Container    from '../Container';
-import keyMap       from '../../constants/keyMap';
-import circleMotion from '../../utils/circleMotion';
-
-
-function Suggestion( { text, highlighted } )
-{
-    return (
-
-        <li style={ { fontWeight : ( highlighted ? 'bold' : 'normal' ) } }>
-            { text }
-        </li>
-
-    );
-}
+import Suggestion       from './Suggestion';
+import HotKeysContainer from '../layout/HotKeysContainer';
+import keyMap           from '../../constants/keyMap';
+import circleMotion     from '../../utils/circleMotion';
 
 
 export default class Autocomplete extends React.Component
@@ -90,6 +78,11 @@ export default class Autocomplete extends React.Component
 
     renderSuggestions()
     {
+        if ( this.props.suggestions.length === 0 )
+        {
+            return null;
+        }
+
         const { highlighted } = this.state;
         const { value, suggestions, renderSuggestion:Suggestion } = this.props;
 
@@ -97,13 +90,12 @@ export default class Autocomplete extends React.Component
         (
             <Suggestion
                 key={ i }
-                text={ suggestion.name }
-                highlighted={ ( highlighted === i ) } />
+                highlighted={ ( highlighted === i ) }>
+                { suggestion.name }
+            </Suggestion>
         ) );
 
-        return ( suggestionEls.length > 0 )
-            ? <ul>{ suggestionEls }</ul>
-            : null;
+        return <ul>{ suggestionEls }</ul>;
     }
 
 
@@ -113,18 +105,18 @@ export default class Autocomplete extends React.Component
 
         return (
 
-            <HotKeys
+            <HotKeysContainer
                 className={ className }
                 keyMap={ keyMap }
                 handlers={ this.handlers }>
 
-                    <Input
-                        value={ value }
-                        onChange={ this.handleChange } />
+                <Input
+                    value={ value }
+                    onChange={ this.handleChange } />
 
-                    { this.renderSuggestions() }
+                { this.renderSuggestions() }
 
-            </HotKeys>
+            </HotKeysContainer>
 
         );
     }
