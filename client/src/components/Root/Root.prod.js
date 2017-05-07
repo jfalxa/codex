@@ -3,8 +3,7 @@ import { Provider }             from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { injectGlobal }         from 'styled-components';
 
-import App    from '../../components/App';
-import keyMap from '../../constants/keyMap';
+import App from '../../components/App';
 
 
 injectGlobal`
@@ -20,6 +19,11 @@ injectGlobal`
     #main
     {
         display: flex;
+    }
+
+    #main *
+    {
+        font-family: 'Roboto Slab', serif;
     }
 
     div[tabindex="-1"]:focus
