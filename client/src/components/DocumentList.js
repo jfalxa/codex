@@ -28,7 +28,7 @@ export default class DocumentList extends React.Component
 {
     renderDocuments()
     {
-        const { documents, highlighted, onHighlight } = this.props;
+        const { documents, highlighted, setHighlight } = this.props;
 
         return documents.map( ( doc, i ) =>
         (
@@ -37,7 +37,7 @@ export default class DocumentList extends React.Component
                 id={ doc.id }
                 name={ doc.name }
                 highlighted={ highlighted === i }
-                onHighlight={ () => onHighlight( i ) } />
+                onHighlight={ () => setHighlight( i ) } />
         ) );
     }
 

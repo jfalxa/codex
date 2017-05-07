@@ -1,18 +1,19 @@
-import React from 'react';
+import React    from 'react';
 import { Link } from 'react-router-dom';
 
-import Container from './Container';
+import Container       from './Container';
+import ConnectedSearch from './ConnectedSearch';
 
 
-export default function Topbar( props )
+export default function Topbar()
 {
     return (
 
         <Container columns>
 
-            <Link to="/">Home</Link>
-            -
-            <Link to="/add">New document</Link>
+            <Link to="/add">New</Link>
+
+            <ConnectedSearch />
 
         </Container>
 

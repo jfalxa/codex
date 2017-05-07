@@ -2,7 +2,6 @@ import React from 'react';
 
 import Container    from './Container';
 import Autocomplete from './Autocomplete';
-import DocumentList from './DocumentList';
 
 const LAST_WORD_RX = / *([^" ]+|"[^"]+") *$/;
 const NEW_TERM_RX  = /^ *( |\(|("[\w ]+"|[\w]+) *( |,|\)) *)/;
@@ -10,32 +9,6 @@ const NEW_TERM_RX  = /^ *( |\(|("[\w ]+"|[\w]+) *( |,|\)) *)/;
 
 export default class Search extends React.Component
 {
-    componentDidMount()
-    {
-        const { location, setSearch, apiSearchDocs } = this.props;
-
-        const hashSearch = location.hash.substring( 1 );
-
-        setSearch( hashSearch );
-        apiSearchDocs( hashSearch );
-    }
-
-
-    componentDidUpdate( prevProps )
-    {
-        const { search, location, setSearch, apiSearchDocs } = this.props;
-
-        const hashSearch     = location.hash.substring( 1 );
-        const prevHashSearch = prevProps.location.hash.substring( 1 );
-
-        if ( hashSearch !== prevHashSearch )
-        {
-            setSearch( hashSearch );
-            apiSearchDocs( hashSearch );
-        }
-    }
-
-
     getFragment( value )
     {
         return value.replace( this.props.search, '' );
@@ -88,14 +61,12 @@ export default class Search extends React.Component
 
     handleSubmit = () =>
     {
-        const { search, fragment, history, setSearch, apiSearchDocs } = this.props;
+        const { search, fragment, setSearch, apiSearchDocs } = this.props;
 
         const newSearch = ( search + fragment );
 
         setSearch( newSearch );
         apiSearchDocs( newSearch );
-
-        history.push( `/#${ newSearch }` );
     }
 
 
@@ -109,26 +80,16 @@ export default class Search extends React.Component
 
     render()
     {
-        const { highlighted, documents, search, fragment, suggestions } = this.props;
-        const { setFragment, setHighlight, apiSearchDocs } = this.props;
+        const { search, fragment, suggestions } = this.props;
 
         return (
 
-            <Container fill rows>
-
-                <Autocomplete
-                    value={ search + fragment }
-                    suggestions={ suggestions }
-                    onChange={ this.handleChange }
-                    onSubmit={ this.handleSubmit }
-                    getSuggestions={ this.getSuggestions } />
-
-                <DocumentList
-                    highlighted={ highlighted }
-                    documents={ documents }
-                    onHighlight={ setHighlight } />
-
-            </Container>
+            <Autocomplete
+                value={ search + fragment }
+                suggestions={ suggestions }
+                onChange={ this.handleChange }
+                onSubmit={ this.handleSubmit }
+                getSuggestions={ this.getSuggestions } />
 
         );
     }

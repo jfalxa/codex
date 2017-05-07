@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 
 import Search from './Search';
-import { setSearch, setFragment, setHighlight, apiAutocomplete, apiSearchDocs } from '../reducers/codex';
+import { setSearch, setFragment, apiAutocomplete, apiSearchDocs } from '../reducers/codex';
 
 
-export function selectSearch( state )
+export function selectSearch( state, props )
 {
     return state.codex;
 }
@@ -15,8 +15,7 @@ const actionCreators =
     setSearch,
     setFragment,
     apiAutocomplete,
-    apiSearchDocs,
-    setHighlight
+    apiSearchDocs
 };
 
 
