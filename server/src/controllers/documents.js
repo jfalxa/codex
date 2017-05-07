@@ -59,19 +59,28 @@ exports.deleteDocument = function deleteDocument( req, res, next )
 };
 
 
-exports.addDocumentTag = function addDocumentTag( req, res, next )
+exports.addDocTag = function addDocTag( req, res, next )
 {
     const { docID }    = req.params;
     const { name:tag } = req.body;
 
     Tag.createTag( tag )
         .then( () => DocTag.addDocTag( docID, tag ) )
-        .then( data => res.status( 201 ).json( { id : data.tag_id, name : tag } ) )
+        .then( data =>
+        {
+            // tag already exists
+            if ( !data )
+            {
+                res.status( 204 ).end();
+            }
+
+            res.status( 201 ).json( { id : data.tag_id, name : tag } );
+        } )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
 
 
-exports.updateDocumentTag = function updateDocumentTag( req, res, next )
+exports.updateDocTag = function updateDocTag( req, res, next )
 {
     const { docID, tagID } = req.params;
 
@@ -81,7 +90,7 @@ exports.updateDocumentTag = function updateDocumentTag( req, res, next )
 };
 
 
-exports.removeDocumentTag = function removeDocumentTag( req, res, next )
+exports.removeDocTag = function removeDocTag( req, res, next )
 {
     const { docID, tagID } = req.params;
 

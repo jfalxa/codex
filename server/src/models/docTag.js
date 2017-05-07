@@ -17,9 +17,10 @@ exports.addDocTag = function addDocTag( docID, tag )
     const query = 'INSERT INTO doc_tags ( document_id, tag_id )'
         + ' SELECT $1, t.id FROM tags t'
         + ' WHERE t.name = $2'
+        + ' ON CONFLICT ( document_id, tag_id ) DO NOTHING'
         + ' RETURNING tag_id';
 
-    return db.one( query, [docID, tag] );
+    return db.oneOrNone( query, [docID, tag] );
 };
 
 
@@ -34,6 +35,7 @@ exports.addManyDocTags = function addManyDocTags( docID, manyTags )
 
     const query = 'INSERT INTO doc_tags ( document_id, tag_id )'
         + ' SELECT $1, t.id FROM tags t'
+        + ' ON CONFLICT ( document_id, tag_id ) DO NOTHING'
         + ' WHERE t.name IN ( $2:csv )';
 
     return db.none( query, [docID, tagNames] );
