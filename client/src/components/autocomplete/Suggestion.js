@@ -19,6 +19,7 @@ export const Suggestion = styled.li`
 export const Suggestions = styled.ul`
 
     position: absolute;
+    z-index: 2;
     top: 100%;
 
     width: 100%;

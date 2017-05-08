@@ -1,21 +1,19 @@
-import React    from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-import Container       from './layout/Container';
+import NewDocument     from './NewDocument';
+import TopbarContainer from './layout/TopbarContainer';
 import ConnectedSearch from './connectors/ConnectedSearch';
+
 
 
 export default function Topbar()
 {
     return (
 
-        <Container columns crossCenter>
-
-            <Link to="/add">New</Link>
-
+        <TopbarContainer columns crossCenter>
+            <NewDocument />
             <ConnectedSearch />
-
-        </Container>
+        </TopbarContainer>
 
     );
 }

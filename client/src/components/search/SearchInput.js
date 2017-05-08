@@ -10,11 +10,10 @@ const SearchInput = styled.input`
     border: 0;
     padding: 5px 10px;
 
-    background-color: ${ lightBackground };
-
     font-size: 1.4em;
     font-weight: bold;
 
+    box-shadow: 0 0 2px 0px #DDD;
     outline: 0;
 
 `;
