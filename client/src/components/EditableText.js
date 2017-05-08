@@ -1,8 +1,46 @@
 import React from 'react';
 
 
+function Editing( { value, onChange, onStopEdit } )
+{
+    return (
+
+        <div>
+
+            <input
+                value={ value }
+                onChange={ onChange } />
+
+            <button onClick={ onStopEdit }>Save</button>
+
+        </div>
+
+    );
+}
+
+
+function Showing( { value, onStartEdit } )
+{
+    return (
+
+        <div>
+            <span>{ value }</span>
+            <button onClick={ onStartEdit }>Edit</button>
+        </div>
+
+    );
+}
+
+
 export default class EditableText extends React.Component
 {
+    static defaultProps =
+    {
+        renderEditing : Editing,
+        renderShowing : Showing
+    }
+
+
     state =
     {
         isEditing : false
@@ -24,46 +62,13 @@ export default class EditableText extends React.Component
     }
 
 
-    renderEditing()
-    {
-        const { value, onChange } = this.props;
-
-        return (
-
-            <div>
-
-                <input
-                    value={ value }
-                    onChange={ onChange } />
-
-                <button onClick={ this.stopEditing }>Save</button>
-
-            </div>
-
-        );
-    }
-
-
-    renderShowing()
-    {
-        const { value } = this.props;
-
-        return (
-
-            <div>
-                <span>{ value }</span>
-                <button onClick={ this.startEditing }>Edit</button>
-            </div>
-
-        );
-    }
-
-
     render()
     {
-        return ( this.props.edit || this.state.isEditing )
-            ? this.renderEditing()
-            : this.renderShowing();
-    }
+        const { edit, value, onChange } = this.props;
+        const { renderEditing:Editing, renderShowing:Showing } = this.props;
 
+        return ( edit || this.state.isEditing )
+            ? <Editing value={ value } onChange={ onChange } onStopEdit={ this.stopEditing } />
+            : <Showing value={ value } onStartEdit={ this.startEditing } />;
+    }
 }
