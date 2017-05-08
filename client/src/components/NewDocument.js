@@ -17,7 +17,7 @@ export default function NewDocument( props )
 {
     return (
 
-        <Link to="/add">
+        <Link to="/add" title="Add a new document">
             <NewIcon size="25" />
         </Link>
 

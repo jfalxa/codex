@@ -23,6 +23,7 @@ injectGlobal`
     #main
     {
         display: flex;
+        background-color: #FAFAFA;
     }
 
 

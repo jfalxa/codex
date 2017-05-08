@@ -8,6 +8,10 @@ const TopbarContainer = styled.div`
 
     ${ container }
 
+    position: fixed;
+
+    width: 100%;
+
     padding: 5px 10px;
 
     background-color: ${ lightBackground };

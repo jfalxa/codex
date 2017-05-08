@@ -7,9 +7,9 @@ export const Suggestion = styled.li`
 
     padding: 10px;
 
-    background-color: ${ p => p.highlighted ? lightBackground : '#FFF' };
+    background-color: ${ p => p.highlighted ? lightBackground : 'initial' };
 
-    font-weight: ${ p => p.highlighted ? 'bold' : 'normal' };
+    font-weight: ${ p => p.highlighted ? 'bold' : 'initial' };
 
     list-style: none;
 

@@ -8,13 +8,22 @@ export default class DocumentEditor extends React.Component
 {
     componentDidMount()
     {
-        const { id, apiLoadDoc } = this.props;
-        apiLoadDoc( id );
+        if ( !this.props.id )
+        {
+            return this.props.resetDoc();
+        }
+
+        this.props.apiLoadDoc( this.props.id );
     }
 
 
     componentDidUpdate( prevProps )
     {
+        if ( !this.props.id )
+        {
+            return this.props.resetDoc();
+        }
+
         const { id, apiLoadDoc } = this.props;
         const { id:prevID }      = prevProps;
 
@@ -48,6 +57,11 @@ export default class DocumentEditor extends React.Component
 
     render()
     {
+        if ( !this.props.id )
+        {
+            return null;
+        }
+
         const { doc, fragment, suggestions } = this.props;
         const { setFragment, changeName, apiAutocomplete } = this.props;
 

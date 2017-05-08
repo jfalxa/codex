@@ -1,15 +1,19 @@
 import { connect } from 'react-redux';
 
 import DocumentEditor from '../document/DocumentEditor';
-import { apiLoadDoc, apiUpdateDoc, apiAutocomplete, changeName, setFragment, apiAddTag, apiRemoveTag } from '../../reducers/document';
+import { apiLoadDoc, apiUpdateDoc, apiAutocomplete, resetDoc, changeName, setFragment, apiAddTag, apiRemoveTag } from '../../reducers/document';
 
 
 export function selectDocumentEditor( state, props )
 {
-    // either use the id provided by the URL or the one from props
-    const id = props.match
-        ? props.match.params.docID
-        : props.id;
+    const { match }                  = props;
+    const { documents, highlighted } = state.codex;
+
+    const urlID         = match && match.params.docID;
+    const highlightedID = documents[highlighted] && documents[highlighted].id;
+
+    // either use the id provided by the URL or the one highlighted in preview
+    const id = urlID || highlightedID;
 
     return { ...state.document, id };
 }
@@ -22,6 +26,7 @@ const actionCreators =
     apiAutocomplete,
     apiAddTag,
     apiRemoveTag,
+    resetDoc,
     changeName,
     setFragment
 };

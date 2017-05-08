@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Container    from '../layout/Container';
-import Autocomplete from '../autocomplete/Autocomplete';
-import EditableText from '../EditableText';
+import DocumentContainer from '../layout/DocumentContainer';
+import Autocomplete      from '../autocomplete/Autocomplete';
+import EditableText      from '../EditableText';
 
 
 function Tag( { name, onEdit, onRemove } )
@@ -47,7 +47,7 @@ export default class Document extends React.Component
 
         return (
 
-            <Container rows>
+            <DocumentContainer rows>
 
                 <EditableText
                     edit={ edit }
@@ -66,7 +66,7 @@ export default class Document extends React.Component
                     { this.renderTags() }
                 </ul>
 
-            </Container>
+            </DocumentContainer>
 
         );
     }

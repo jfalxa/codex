@@ -3,9 +3,10 @@ import { Route } from 'react-router-dom';
 
 import Topbar                   from './Topbar';
 import Container                from './layout/Container';
+import MainContainer            from './layout/MainContainer';
+import DocumentPreview          from './document/DocumentPreview';
 import ConnectedDocumentCreator from './connectors/ConnectedDocumentCreator';
 import ConnectedDocumentEditor  from './connectors/ConnectedDocumentEditor';
-import ConnectedDocumentList    from './connectors/ConnectedDocumentList';
 
 import '../style/global';
 
@@ -20,11 +21,11 @@ export default class App extends React.Component
 
                 <Topbar />
 
-                <Container crossCenter>
-                    <Route exact path="/" component={ ConnectedDocumentList } />
+                <MainContainer fill>
+                    <Route exact path="/" component={ DocumentPreview } />
                     <Route path="/add" component={ ConnectedDocumentCreator } />
                     <Route path="/docs/:docID" component={ ConnectedDocumentEditor } />
-                </Container>
+                </MainContainer>
 
             </Container>
 

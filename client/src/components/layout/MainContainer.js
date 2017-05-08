@@ -7,9 +7,9 @@ const MainContainer = styled.section`
 
     ${ container }
 
-    min-width: 600px;
-    max-width: 800px;
+    align-self: center;
 
+    margin-top: 50px
     padding: 25px;
 
 `;

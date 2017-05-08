@@ -1,26 +1,7 @@
-import React       from 'react';
-import { Link }    from 'react-router-dom';
-import { HotKeys } from 'react-hotkeys';
+import React from 'react';
 
-import Container               from '../layout/Container';
-import MainContainer           from '../layout/MainContainer';
-import ConnectedDocumentEditor from '../connectors/ConnectedDocumentEditor';
-
-
-function DocumentLink( { id, name, highlighted, onHighlight } )
-{
-    return (
-
-        <li
-            style={ { fontWeight : highlighted ? 'bold' : 'normal' } }
-            onClick={ onHighlight }>
-
-            <span>{ name }</span>
-
-        </li>
-
-    );
-}
+import DocumentListItem      from './DocumentListItem';
+import DocumentListContainer from '../layout/DocumentListContainer';
 
 
 export default class DocumentList extends React.Component
@@ -31,34 +12,32 @@ export default class DocumentList extends React.Component
 
         return documents.map( ( doc, i ) =>
         (
-            <DocumentLink
+            <DocumentListItem
                 key={ i }
-                name={ doc.name }
                 highlighted={ highlighted === i }
-                onHighlight={ () => setHighlight( i ) } />
+                onClick={ () => setHighlight( i ) }>
+                { doc.name }
+            </DocumentListItem>
         ) );
     }
 
 
     render()
     {
-        const { highlighted, documents } = this.props;
+        if ( this.props.documents.length === 0 )
+        {
+            return null;
+        }
 
-        const docID = documents[highlighted] && documents[highlighted].id;
+        const { highlighted, documents } = this.props;
 
         return (
 
-            <MainContainer fill columns>
-
-                <Container fill>
+            <DocumentListContainer>
+                <ul>
                     { this.renderDocuments() }
-                </Container>
-
-                <Container fill>
-                    { docID && <ConnectedDocumentEditor id={ docID } /> }
-                </Container>
-
-            </MainContainer>
+                </ul>
+            </DocumentListContainer>
 
         );
     }
