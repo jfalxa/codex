@@ -1,8 +1,8 @@
 import React from 'react';
 
+import DocumentTitle     from './DocumentTitle';
 import DocumentContainer from '../layout/DocumentContainer';
 import Autocomplete      from '../autocomplete/Autocomplete';
-import EditableText      from '../EditableText';
 
 
 function Tag( { name, onEdit, onRemove } )
@@ -49,7 +49,7 @@ export default class Document extends React.Component
 
             <DocumentContainer rows>
 
-                <EditableText
+                <DocumentTitle
                     edit={ edit }
                     value={ doc.name }
                     onChange={ this.handleChangeName }
