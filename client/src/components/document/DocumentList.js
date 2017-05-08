@@ -3,6 +3,7 @@ import { Link }    from 'react-router-dom';
 import { HotKeys } from 'react-hotkeys';
 
 import Container               from '../layout/Container';
+import MainContainer           from '../layout/MainContainer';
 import ConnectedDocumentEditor from '../connectors/ConnectedDocumentEditor';
 
 
@@ -14,8 +15,6 @@ function DocumentLink( { id, name, highlighted, onHighlight } )
             style={ { fontWeight : highlighted ? 'bold' : 'normal' } }
             onClick={ onHighlight }>
 
-            <Link to={ `/docs/${ id }` }>E</Link>
-            { ' ' }
             <span>{ name }</span>
 
         </li>
@@ -34,7 +33,6 @@ export default class DocumentList extends React.Component
         (
             <DocumentLink
                 key={ i }
-                id={ doc.id }
                 name={ doc.name }
                 highlighted={ highlighted === i }
                 onHighlight={ () => setHighlight( i ) } />
@@ -50,7 +48,7 @@ export default class DocumentList extends React.Component
 
         return (
 
-            <Container fill columns>
+            <MainContainer fill columns>
 
                 <Container fill>
                     { this.renderDocuments() }
@@ -60,7 +58,7 @@ export default class DocumentList extends React.Component
                     { docID && <ConnectedDocumentEditor id={ docID } /> }
                 </Container>
 
-            </Container>
+            </MainContainer>
 
         );
     }

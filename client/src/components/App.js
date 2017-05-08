@@ -20,9 +20,11 @@ export default class App extends React.Component
 
                 <Topbar />
 
-                <Route exact path="/" component={ ConnectedDocumentList } />
-                <Route path="/add" component={ ConnectedDocumentCreator } />
-                <Route path="/docs/:docID" component={ ConnectedDocumentEditor } />
+                <Container crossCenter>
+                    <Route exact path="/" component={ ConnectedDocumentList } />
+                    <Route path="/add" component={ ConnectedDocumentCreator } />
+                    <Route path="/docs/:docID" component={ ConnectedDocumentEditor } />
+                </Container>
 
             </Container>
 
