@@ -1,16 +1,17 @@
+import React  from 'react';
 import styled from 'styled-components';
 
 import { lightBackground } from '../../style/theme';
 
 
-const SearchInput = styled.input`
+const StyledInput = styled.input`
 
     flex: 1;
 
     border: 0;
     padding: 5px 10px;
 
-    font-size: 1.4em;
+    font-size: 1.3em;
     font-weight: bold;
 
     box-shadow: 0 0 2px 0px #DDD;
@@ -19,4 +20,12 @@ const SearchInput = styled.input`
 `;
 
 
-export default SearchInput;
+export default function SearchInput( props )
+{
+    return (
+
+        <StyledInput { ...props }
+            placeholder="Please enter a query..." />
+
+    );
+}
