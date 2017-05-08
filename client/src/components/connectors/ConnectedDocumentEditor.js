@@ -1,21 +1,27 @@
 import { connect } from 'react-redux';
 
 import DocumentEditor from '../document/DocumentEditor';
-import { apiAutocomplete, setFragment, apiAddTag, apiRemoveTag } from '../../reducers/document';
+import { apiLoadDoc, apiAutocomplete, setFragment, apiAddTag, apiRemoveTag } from '../../reducers/document';
 
 
-export function selectDocumentEditor( state )
+export function selectDocumentEditor( state, props )
 {
-    return state.document;
+    // either use the id provided by the URL or the one from props
+    const id = props.match
+        ? props.match.params.docID
+        : props.id;
+
+    return { ...state.document, id };
 }
 
 
 const actionCreators =
 {
+    apiLoadDoc,
     apiAutocomplete,
-    setFragment,
     apiAddTag,
-    apiRemoveTag
+    apiRemoveTag,
+    setFragment
 };
 
 

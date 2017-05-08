@@ -3,7 +3,7 @@ import { Link }    from 'react-router-dom';
 import { HotKeys } from 'react-hotkeys';
 
 import Container               from '../layout/Container';
-import ConnectedDocumentLoader from '../connectors/ConnectedDocumentLoader';
+import ConnectedDocumentEditor from '../connectors/ConnectedDocumentEditor';
 
 
 function DocumentLink( { id, name, highlighted, onHighlight } )
@@ -56,8 +56,8 @@ export default class DocumentList extends React.Component
                     { this.renderDocuments() }
                 </Container>
 
-                <Container fill={ 2 }>
-                    { docID && <ConnectedDocumentLoader id={ docID } /> }
+                <Container fill>
+                    { docID && <ConnectedDocumentEditor id={ docID } /> }
                 </Container>
 
             </Container>

@@ -1,13 +1,30 @@
 import React from 'react';
 
-import Layout                  from '../layout/Layout';
-import Container               from '../layout/Container';
-import Autocomplete            from '../autocomplete/Autocomplete';
-import ConnectedDocumentLoader from '../connectors/ConnectedDocumentLoader';
+import Container from '../layout/Container';
+import Document  from './Document';
 
 
 export default class DocumentEditor extends React.Component
 {
+    componentDidMount()
+    {
+        const { id, apiLoadDoc } = this.props;
+        apiLoadDoc( id );
+    }
+
+
+    componentDidUpdate( prevProps )
+    {
+        const { id, apiLoadDoc } = this.props;
+        const { id:prevID }      = prevProps;
+
+        if ( id !== prevID )
+        {
+            apiLoadDoc( id );
+        }
+    }
+
+
     handleAddTag = ( tag ) =>
     {
         const { doc, apiAddTag } = this.props;
@@ -15,29 +32,28 @@ export default class DocumentEditor extends React.Component
     }
 
 
+    handleRemoveTag = ( tag ) =>
+    {
+        const { doc, apiRemoveTag } = this.props;
+        apiRemoveTag( doc.id, tag.id );
+    }
+
+
     render()
     {
-        const { fragment, suggestions, match } = this.props;
+        const { doc, fragment, suggestions } = this.props;
         const { setFragment, apiAutocomplete } = this.props;
 
         return (
 
-            <Container columns>
-
-                <Layout fill>
-                    <Autocomplete
-                        value={ fragment }
-                        suggestions={ suggestions }
-                        onChange={ setFragment }
-                        onSubmit={ this.handleAddTag }
-                        getSuggestions={ apiAutocomplete } />
-                </Layout>
-
-                <Layout fill={ 2 }>
-                    <ConnectedDocumentLoader id={ match.params.docID } />
-                </Layout>
-
-            </Container>
+            <Document
+                doc={ doc }
+                fragment={ fragment }
+                suggestions={ suggestions }
+                getSuggestions={ apiAutocomplete }
+                onSetFragment={ setFragment }
+                onAddTag={ this.handleAddTag }
+                onRemoveTag={ this.handleRemoveTag } />
 
         );
 

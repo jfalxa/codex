@@ -1,8 +1,7 @@
 import React from 'react';
 
-import Document     from './Document';
-import Container    from '../layout/Container';
-import Autocomplete from '../autocomplete/Autocomplete';
+import Document  from './Document';
+import Container from '../layout/Container';
 
 
 export default class DocumentCreator extends React.Component
@@ -43,7 +42,7 @@ export default class DocumentCreator extends React.Component
 
     render()
     {
-        const { fragment, suggestions, doc } = this.props;
+        const { doc, fragment, suggestions } = this.props;
         const { setFragment, apiAutocomplete, removeTag, changeName } = this.props;
 
         return (
@@ -60,21 +59,14 @@ export default class DocumentCreator extends React.Component
 
                 </Container>
 
-                <Container columns>
-
-                    <Autocomplete
-                        value={ fragment }
-                        suggestions={ suggestions }
-                        onChange={ setFragment }
-                        onSubmit={ this.handleAddTag }
-                        getSuggestions={ apiAutocomplete } />
-
-                    <Document
-                        name={ doc.name }
-                        tags={ doc.tags }
-                        onRemoveTag={ removeTag } />
-
-                </Container>
+                <Document
+                    doc={ doc }
+                    fragment={ fragment }
+                    suggestions={ suggestions }
+                    getSuggestions={ apiAutocomplete }
+                    onSetFragment={ setFragment }
+                    onAddTag={ this.handleAddTag }
+                    onRemoveTag={ removeTag } />
 
             </Container>
 

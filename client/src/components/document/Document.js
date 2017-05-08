@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Container from '../layout/Container';
+import Container    from '../layout/Container';
+import Autocomplete from '../autocomplete/Autocomplete';
 
 
 function Tag( { name, onEdit, onRemove } )
@@ -20,9 +21,9 @@ export default class Document extends React.Component
 {
     renderTags()
     {
-        const { tags, onRemoveTag } = this.props;
+        const { doc, onRemoveTag } = this.props;
 
-        return tags.map( ( tag, i ) =>
+        return doc.tags.map( ( tag, i ) =>
         (
             <Tag
                 key={ i }
@@ -34,13 +35,21 @@ export default class Document extends React.Component
 
     render()
     {
-        const { name, layout } = this.props;
+        const { doc, fragment, suggestions, onAddTag, onSetFragment, getSuggestions } = this.props;
+
 
         return (
 
-            <Container { ...layout } rows>
+            <Container rows>
 
-                <b>{ name }</b>
+                <b>{ doc.name }</b>
+
+                <Autocomplete
+                    value={ fragment }
+                    suggestions={ suggestions }
+                    onChange={ onSetFragment }
+                    onSubmit={ onAddTag }
+                    getSuggestions={ getSuggestions } />
 
                 <ul>
                     { this.renderTags() }
