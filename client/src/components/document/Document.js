@@ -2,6 +2,7 @@ import React from 'react';
 
 import Container    from '../layout/Container';
 import Autocomplete from '../autocomplete/Autocomplete';
+import EditableText from '../EditableText';
 
 
 function Tag( { name, onEdit, onRemove } )
@@ -19,6 +20,12 @@ function Tag( { name, onEdit, onRemove } )
 
 export default class Document extends React.Component
 {
+    handleChangeName = ( e ) =>
+    {
+        this.props.onChangeName( e.target.value );
+    }
+
+
     renderTags()
     {
         const { doc, onRemoveTag } = this.props;
@@ -35,14 +42,18 @@ export default class Document extends React.Component
 
     render()
     {
-        const { doc, fragment, suggestions, onAddTag, onSetFragment, getSuggestions } = this.props;
-
+        const { doc, fragment, suggestions, edit } = this.props
+        const { onSaveDoc, onAddTag, onSetFragment, getSuggestions } = this.props;
 
         return (
 
             <Container rows>
 
-                <b>{ doc.name }</b>
+                <EditableText
+                    edit={ edit }
+                    value={ doc.name }
+                    onChange={ this.handleChangeName }
+                    onEdit={ onSaveDoc } />
 
                 <Autocomplete
                     value={ fragment }

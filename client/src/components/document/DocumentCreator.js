@@ -12,14 +12,6 @@ export default class DocumentCreator extends React.Component
     }
 
 
-    handleChangeName = ( e ) =>
-    {
-        const { changeName } = this.props;
-        const name = e.target.value;
-        changeName( name );
-    }
-
-
     handleSaveDoc = () =>
     {
         if ( !this.props.doc.name )
@@ -43,32 +35,20 @@ export default class DocumentCreator extends React.Component
     render()
     {
         const { doc, fragment, suggestions } = this.props;
-        const { setFragment, apiAutocomplete, removeTag, changeName } = this.props;
+        const { setFragment, removeTag, changeName, apiAutocomplete } = this.props;
 
         return (
 
-            <Container rows>
-
-                <Container columns>
-
-                    <input
-                        value={ doc.name }
-                        onChange={ this.handleChangeName } />
-
-                    <button onClick={ this.handleSaveDoc }>Save</button>
-
-                </Container>
-
-                <Document
-                    doc={ doc }
-                    fragment={ fragment }
-                    suggestions={ suggestions }
-                    getSuggestions={ apiAutocomplete }
-                    onSetFragment={ setFragment }
-                    onAddTag={ this.handleAddTag }
-                    onRemoveTag={ removeTag } />
-
-            </Container>
+            <Document edit
+                doc={ doc }
+                fragment={ fragment }
+                suggestions={ suggestions }
+                getSuggestions={ apiAutocomplete }
+                onSetFragment={ setFragment }
+                onAddTag={ this.handleAddTag }
+                onRemoveTag={ removeTag }
+                onChangeName={ changeName }
+                onSaveDoc={ this.handleSaveDoc } />
 
         );
     }

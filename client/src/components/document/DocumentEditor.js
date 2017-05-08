@@ -39,10 +39,17 @@ export default class DocumentEditor extends React.Component
     }
 
 
+    handleSaveDoc = () =>
+    {
+        const { doc, apiUpdateDoc } = this.props;
+        apiUpdateDoc( doc.id, { name : doc.name } );
+    }
+
+
     render()
     {
         const { doc, fragment, suggestions } = this.props;
-        const { setFragment, apiAutocomplete } = this.props;
+        const { setFragment, changeName, apiAutocomplete } = this.props;
 
         return (
 
@@ -53,7 +60,9 @@ export default class DocumentEditor extends React.Component
                 getSuggestions={ apiAutocomplete }
                 onSetFragment={ setFragment }
                 onAddTag={ this.handleAddTag }
-                onRemoveTag={ this.handleRemoveTag } />
+                onRemoveTag={ this.handleRemoveTag }
+                onChangeName={ changeName }
+                onSaveDoc={ this.handleSaveDoc } />
 
         );
 
