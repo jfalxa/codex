@@ -9,7 +9,7 @@ export default function Topbar()
 {
     return (
 
-        <Container columns>
+        <Container columns crossCenter>
 
             <Link to="/add">New</Link>
 

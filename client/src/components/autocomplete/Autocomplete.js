@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Suggestion       from './Suggestion';
-import HotKeysContainer from '../layout/HotKeysContainer';
-import keyMap           from '../../constants/keyMap';
-import circleMotion     from '../../utils/circleMotion';
+import { Suggestion, Suggestions } from './Suggestion';
+import HotKeysContainer            from '../layout/HotKeysContainer';
+import keyMap                      from '../../constants/keyMap';
+import circleMotion                from '../../utils/circleMotion';
 
 
 export default class Autocomplete extends React.Component
@@ -25,7 +25,7 @@ export default class Autocomplete extends React.Component
     {
         next  : e => this.handleHighlight( +1, e ),
         prev  : e => this.handleHighlight( -1, e ),
-        esc   : () => this.resetHighlight(),
+        esc   : () => this.closeSuggestions(),
         enter : () => this.handleSubmit()
     }
 
@@ -33,6 +33,13 @@ export default class Autocomplete extends React.Component
     resetHighlight()
     {
         this.setState( { highlighted : -1 } );
+    }
+
+
+    closeSuggestions = () =>
+    {
+        this.resetHighlight();
+        this.props.getSuggestions( '' );
     }
 
 
@@ -95,7 +102,7 @@ export default class Autocomplete extends React.Component
             </Suggestion>
         ) );
 
-        return <ul>{ suggestionEls }</ul>;
+        return <Suggestions>{ suggestionEls }</Suggestions>;
     }
 
 
@@ -112,7 +119,8 @@ export default class Autocomplete extends React.Component
 
                 <Input
                     value={ value }
-                    onChange={ this.handleChange } />
+                    onChange={ this.handleChange }
+                    onBlur={ this.closeSuggestions } />
 
                 { this.renderSuggestions() }
 

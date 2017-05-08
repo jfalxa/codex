@@ -12,7 +12,7 @@ const SearchInput = styled.input`
 
     background-color: ${ lightBackground };
 
-    font-size: 1.5em;
+    font-size: 1.4em;
     font-weight: bold;
 
     outline: 0;
