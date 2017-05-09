@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 import callAPI from './callAPI';
 
 
@@ -8,6 +10,8 @@ export function autocomplete( fragment )
         return Promise.resolve( [] );
     }
 
-    return callAPI( `/autocomplete/${ fragment }` );
+    const params = qs.stringify( { fragment } );
+
+    return callAPI( `/autocomplete?${ params }` );
 }
 
