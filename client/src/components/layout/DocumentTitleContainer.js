@@ -6,7 +6,7 @@ const DocumentTitleContainer = styled.div`
 
     ${ container }
 
-    min-height: 1.5em;
+    height: 3.4em;
     margin-bottom: 25px;
 
     svg

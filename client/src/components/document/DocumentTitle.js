@@ -5,7 +5,7 @@ import DoneIcon from 'react-icons/lib/md/done';
 
 import EditableText           from '../utilities/EditableText';
 import DocumentTitleContainer from '../layout/DocumentTitleContainer';
-import { titleFont } from '../../style/theme';
+import { titleFont }          from '../../style/theme';
 
 
 const TitleInput = styled.input`
