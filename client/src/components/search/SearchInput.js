@@ -25,7 +25,7 @@ export default function SearchInput( props )
     return (
 
         <StyledInput { ...props }
-            placeholder="Please enter a query..." />
+            placeholder="Search..." />
 
     );
 }

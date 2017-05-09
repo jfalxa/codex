@@ -12,8 +12,14 @@ function DocumentTitleEditing( { value, onChange, onStopEdit } )
     return (
 
         <DocumentTitleContainer columns mainSpaceBetween crossCenter>
-            <input value={ value } onChange={ onChange } />
+
+            <input
+                value={ value }
+                placeholder="Enter a title..."
+                onChange={ onChange } />
+
             <DoneIcon onClick={ onStopEdit } size="20" />
+
         </DocumentTitleContainer>
 
     );
