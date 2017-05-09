@@ -27,8 +27,6 @@ export default class App extends React.Component
                     <Route path="/docs/:docID" component={ ConnectedDocumentEditor } />
                 </MainContainer>
 
-                <div>Footer</div>
-
             </Container>
 
         );
