@@ -24,7 +24,8 @@ export const Suggestions = styled.ul`
 
     width: 100%;
 
-    border: 1px solid ${ lightBackground };
+    border: 1px solid #CCCCCC;
+    border-top: 0;
 
     background-color: #FFFFFF;
 `;

@@ -17,6 +17,7 @@ injectGlobal`
     *
     {
         font-family: ${ bodyFont };
+        box-sizing: border-box;
     }
 
 

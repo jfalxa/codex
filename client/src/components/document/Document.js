@@ -4,7 +4,8 @@ import DocumentTitle           from './DocumentTitle';
 import DocumentTag             from './DocumentTag';
 import DocumentContainer       from '../layout/DocumentContainer';
 import ScrollableListContainer from '../layout/ScrollableListContainer';
-import Autocomplete            from '../utilities/Autocomplete';
+import TagAutocomplete         from '../document/TagAutocomplete';
+import TagInput                from '../document/TagInput';
 
 
 export default class Document extends React.Component
@@ -44,12 +45,13 @@ export default class Document extends React.Component
                     onChange={ this.handleChangeName }
                     onEdit={ onSaveDoc } />
 
-                <Autocomplete
+                <TagAutocomplete
                     value={ fragment }
                     suggestions={ suggestions }
                     onChange={ onSetFragment }
                     onSubmit={ onAddTag }
-                    getSuggestions={ getSuggestions } />
+                    getSuggestions={ getSuggestions }
+                    renderInput={ TagInput } />
 
                 <ScrollableListContainer>
                     { this.renderTags() }
