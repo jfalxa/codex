@@ -10,7 +10,6 @@ const MainContainer = styled.div`
     width: 100%;
     max-width: 1280px;
 
-    margin-top: 50px
     padding: 25px;
 
 `;

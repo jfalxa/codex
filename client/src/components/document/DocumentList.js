@@ -27,7 +27,7 @@ export default class DocumentList extends React.Component
     {
         if ( this.props.documents.length === 0 )
         {
-            return null;
+            return <span>No results found.</span>;
         }
 
         const { highlighted, documents } = this.props;

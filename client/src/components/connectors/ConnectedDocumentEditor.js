@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import _toNumber   from 'lodash/toNumber';
 
 import DocumentEditor from '../document/DocumentEditor';
 import { apiLoadDoc, apiUpdateDoc, apiAutocomplete, resetDoc, changeName, setFragment, apiAddTag, apiRemoveTag } from '../../reducers/document';
@@ -13,7 +14,7 @@ export function selectDocumentEditor( state, props )
     const highlightedID = documents[highlighted] && documents[highlighted].id;
 
     // either use the id provided by the URL or the one highlighted in preview
-    const id = urlID || highlightedID;
+    const id = _toNumber( urlID || highlightedID );
 
     return { ...state.document, id };
 }

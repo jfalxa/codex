@@ -57,9 +57,9 @@ export default class DocumentEditor extends React.Component
 
     render()
     {
-        if ( !this.props.id )
+        if ( !this.props.doc.id )
         {
-            return null;
+            return <span>No document to edit.</span>
         }
 
         const { doc, fragment, suggestions } = this.props;
