@@ -11,6 +11,7 @@ const TopbarContainer = styled.div`
     position: fixed;
 
     width: 100%;
+    height: 50px;
 
     padding: 5px 10px;
 

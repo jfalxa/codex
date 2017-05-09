@@ -112,7 +112,7 @@ export default class Autocomplete extends React.Component
 
         return (
 
-            <HotKeysContainer { ...layout }
+            <HotKeysContainer
                 className={ className }
                 keyMap={ keyMap }
                 handlers={ this.handlers }>

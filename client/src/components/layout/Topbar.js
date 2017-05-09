@@ -1,9 +1,8 @@
 import React from 'react';
 
-import NewDocument     from './NewDocument';
-import TopbarContainer from './layout/TopbarContainer';
-import ConnectedSearch from './connectors/ConnectedSearch';
-
+import TopbarContainer from './TopbarContainer';
+import NewDocument     from '../document/NewDocument';
+import ConnectedSearch from '../connectors/ConnectedSearch';
 
 
 export default function Topbar()

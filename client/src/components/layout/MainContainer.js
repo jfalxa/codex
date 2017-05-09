@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import container from '../../style/container';
 
 
-const MainContainer = styled.section`
+const MainContainer = styled.div`
 
     ${ container }
 
-    align-self: center;
+    width: 100%;
+    max-width: 1280px;
 
     margin-top: 50px
     padding: 25px;

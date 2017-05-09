@@ -7,9 +7,7 @@ const DocumentListContainer = styled.section`
 
     ${ container }
 
-    min-width: 400px;
-
-    margin: 0 25px;
+    margin-right: 25px;
 
     background-color: #FFFFFF;
     box-shadow: 0 0 2px #CCCCCC;

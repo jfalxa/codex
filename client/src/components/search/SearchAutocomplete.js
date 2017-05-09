@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import Autocomplete from '../autocomplete/Autocomplete';
+import Autocomplete from '../utilities/Autocomplete';
 
 
 const SearchAutocomplete = styled( Autocomplete )`

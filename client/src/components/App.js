@@ -1,7 +1,7 @@
 import React     from 'react';
 import { Route } from 'react-router-dom';
 
-import Topbar                   from './Topbar';
+import Topbar                   from './layout/Topbar';
 import Container                from './layout/Container';
 import MainContainer            from './layout/MainContainer';
 import DocumentPreview          from './document/DocumentPreview';
@@ -17,7 +17,7 @@ export default class App extends React.Component
     {
         return (
 
-            <Container fill rows>
+            <Container fill rows crossCenter>
 
                 <Topbar />
 
@@ -26,6 +26,8 @@ export default class App extends React.Component
                     <Route path="/add" component={ ConnectedDocumentCreator } />
                     <Route path="/docs/:docID" component={ ConnectedDocumentEditor } />
                 </MainContainer>
+
+                <div>Footer</div>
 
             </Container>
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import DocumentTitle     from './DocumentTitle';
 import DocumentContainer from '../layout/DocumentContainer';
-import Autocomplete      from '../autocomplete/Autocomplete';
+import Autocomplete      from '../utilities/Autocomplete';
 
 
 function Tag( { name, onEdit, onRemove } )

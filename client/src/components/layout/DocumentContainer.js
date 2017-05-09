@@ -7,9 +7,6 @@ const DocumentContainer = styled.section`
 
     ${ container }
 
-    min-width: 400px;
-
-    margin: 0 25px;
     padding: 25px;
 
     background-color: #FFFFFF;
