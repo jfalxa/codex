@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-import { lightBackground } from '../../style/theme';
+import * as theme from '../../style/theme';
 
 
 export const Suggestion = styled.li`
 
     padding: 10px;
 
-    background-color: ${ p => p.highlighted ? lightBackground : 'initial' };
+    background-color: ${ p => p.highlighted ? theme.background : 'initial' };
 
     font-weight: ${ p => p.highlighted ? 'bold' : 'initial' };
 
@@ -24,8 +24,7 @@ export const Suggestions = styled.ul`
 
     width: 100%;
 
-    border: 1px solid #CCCCCC;
-    border-top: 0;
+    background-color: ${ theme.lightBackground };
 
-    background-color: #FFFFFF;
+    box-shadow: 0 0 2px ${ theme.darkBackground };
 `;

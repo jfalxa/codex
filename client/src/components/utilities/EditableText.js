@@ -1,46 +1,8 @@
 import React from 'react';
 
 
-function Editing( { value, onChange, onStopEdit } )
-{
-    return (
-
-        <div>
-
-            <input
-                value={ value }
-                onChange={ onChange } />
-
-            <button onClick={ onStopEdit }>Save</button>
-
-        </div>
-
-    );
-}
-
-
-function Showing( { value, onStartEdit } )
-{
-    return (
-
-        <div>
-            <span>{ value }</span>
-            <button onClick={ onStartEdit }>Edit</button>
-        </div>
-
-    );
-}
-
-
 export default class EditableText extends React.Component
 {
-    static defaultProps =
-    {
-        renderEditing : Editing,
-        renderShowing : Showing
-    }
-
-
     state =
     {
         isEditing : false

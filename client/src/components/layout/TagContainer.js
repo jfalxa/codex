@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import container from '../../style/container';
-import { lightBackground } from '../../style/theme';
+import container  from '../../style/container';
+import * as theme from '../../style/theme';
 
 
 const TagContainer = styled.li`
@@ -17,7 +17,7 @@ const TagContainer = styled.li`
 
     &:hover
     {
-        background-color: ${ lightBackground };
+        background-color: ${ theme.background };
     }
 
 `;

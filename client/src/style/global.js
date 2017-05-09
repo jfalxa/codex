@@ -1,6 +1,6 @@
 import { injectGlobal } from 'styled-components';
 
-import { bodyFont } from './theme';
+import * as theme from './theme';
 
 
 injectGlobal`
@@ -16,15 +16,17 @@ injectGlobal`
 
     *
     {
-        font-family: ${ bodyFont };
         box-sizing: border-box;
+
+        color: ${ theme.primaryText };
+        font-family: ${ theme.bodyFont };
     }
 
 
     #main
     {
         display: flex;
-        background-color: #FAFAFA;
+        background-color: ${ theme.background };
     }
 
 

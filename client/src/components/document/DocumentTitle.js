@@ -5,7 +5,7 @@ import DoneIcon from 'react-icons/lib/md/done';
 
 import EditableText           from '../utilities/EditableText';
 import DocumentTitleContainer from '../layout/DocumentTitleContainer';
-import { titleFont }          from '../../style/theme';
+import * as theme             from '../../style/theme';
 
 
 const TitleInput = styled.input`
@@ -16,11 +16,11 @@ const TitleInput = styled.input`
     padding: 5px 15px;
 
     border: 0;
-    border-bottom: 1px solid #CCCCCC;
+    border-bottom: 1px solid ${ theme.darkBackground };
 
     font-size: 1.5em;
     font-weight: bold;
-    font-family: ${ titleFont };
+    font-family: ${ theme.titleFont };
 
     background-color: transparent;
 
@@ -35,7 +35,7 @@ const Title = styled.h1`
     padding: 0 15px;
 
     font-size: 1.5em;
-    font-family: ${ titleFont };
+    font-family: ${ theme.titleFont };
 
 `;
 

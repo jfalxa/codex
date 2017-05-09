@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import container from '../../style/container';
+import container  from '../../style/container';
+import * as theme from '../../style/theme';
 
 
 const DocumentListContainer = styled.section`
@@ -9,8 +10,8 @@ const DocumentListContainer = styled.section`
 
     margin-right: 25px;
 
-    background-color: #FFFFFF;
-    box-shadow: 0 0 2px #CCCCCC;
+    background-color: ${ theme.lightBackground };
+    box-shadow: 0 0 2px ${ theme.darkBackground };
 
 `;
 

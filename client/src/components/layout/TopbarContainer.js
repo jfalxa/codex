@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import container           from '../../style/container';
-import { lightBackground } from '../../style/theme';
+import container  from '../../style/container';
+import * as theme from '../../style/theme';
 
 
 const TopbarContainer = styled.div`
@@ -12,9 +12,9 @@ const TopbarContainer = styled.div`
 
     padding: 5px 10px;
 
-    background-color: ${ lightBackground };
+    background-color: ${ theme.lightBackground };
 
-    box-shadow: 0px 1px 2px #CCCCCC;
+    box-shadow: 0px 0px 2px ${ theme.darkBackground };
 
 `;
 

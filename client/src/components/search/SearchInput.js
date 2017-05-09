@@ -1,7 +1,7 @@
 import React  from 'react';
 import styled from 'styled-components';
 
-import { lightBackground } from '../../style/theme';
+import * as theme from '../../style/theme';
 
 
 const StyledInput = styled.input`
@@ -10,11 +10,14 @@ const StyledInput = styled.input`
 
     padding: 5px 10px;
 
-    border: 1px solid #CCCCCC;
+    border: 0;
+
+    background-color: transparent;
 
     font-size: 1.3em;
     font-weight: bold;
 
+    box-shadow: 0 0 2px ${ theme.darkBackground }
     outline: 0;
 
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { lightBackground } from '../../style/theme';
+import * as theme from '../../style/theme';
 
 
 const DocumentListItem = styled.li`
@@ -9,11 +9,11 @@ const DocumentListItem = styled.li`
 
     padding: 10px 25px;
 
-    border-bottom: 1px solid ${ lightBackground };
+    border-bottom: 1px solid ${ theme.background };
 
     font-weight: ${ p => p.highlighted ? 'bold' : 'initial' };
 
-    background-color: ${ p => p.highlighted ? lightBackground : 'initial' };
+    background-color: ${ p => p.highlighted ? theme.background : 'initial' };
 
     cursor: pointer;
     list-style: none;
