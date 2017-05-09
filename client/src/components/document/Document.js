@@ -1,9 +1,10 @@
 import React from 'react';
 
-import DocumentTitle     from './DocumentTitle';
-import DocumentTag       from './DocumentTag';
-import DocumentContainer from '../layout/DocumentContainer';
-import Autocomplete      from '../utilities/Autocomplete';
+import DocumentTitle           from './DocumentTitle';
+import DocumentTag             from './DocumentTag';
+import DocumentContainer       from '../layout/DocumentContainer';
+import ScrollableListContainer from '../layout/ScrollableListContainer';
+import Autocomplete            from '../utilities/Autocomplete';
 
 
 export default class Document extends React.Component
@@ -50,9 +51,9 @@ export default class Document extends React.Component
                     onSubmit={ onAddTag }
                     getSuggestions={ getSuggestions } />
 
-                <ul>
+                <ScrollableListContainer>
                     { this.renderTags() }
-                </ul>
+                </ScrollableListContainer>
 
             </DocumentContainer>
 

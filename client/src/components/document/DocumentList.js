@@ -1,7 +1,8 @@
 import React from 'react';
 
-import DocumentListItem      from './DocumentListItem';
-import DocumentListContainer from '../layout/DocumentListContainer';
+import DocumentListItem        from './DocumentListItem';
+import DocumentListContainer   from '../layout/DocumentListContainer';
+import ScrollableListContainer from '../layout/ScrollableListContainer';
 
 
 export default class DocumentList extends React.Component
@@ -34,9 +35,9 @@ export default class DocumentList extends React.Component
         return (
 
             <DocumentListContainer>
-                <ul>
+                <ScrollableListContainer>
                     { this.renderDocuments() }
-                </ul>
+                </ScrollableListContainer>
             </DocumentListContainer>
 
         );

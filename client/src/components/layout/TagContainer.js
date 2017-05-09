@@ -8,6 +8,8 @@ const TagContainer = styled.li`
 
     ${ container };
 
+    flex-shrink: 0;
+
     padding: 10px 15px;
 
     word-break: break-word;
