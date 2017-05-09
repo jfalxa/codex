@@ -4,7 +4,7 @@ const autocompleteCtrl = require( '../controllers/autocomplete' );
 
 const autocomplete = express.Router();
 
-autocomplete.get( '/:fragment', autocompleteCtrl.autocomplete );
+autocomplete.get( '/', autocompleteCtrl.autocomplete );
 
 
 module.exports = autocomplete;
