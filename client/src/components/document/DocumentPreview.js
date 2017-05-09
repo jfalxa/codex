@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Header                  from '../utilities/Header';
 import Container               from '../layout/Container';
 import ConnectedDocumentList   from '../connectors/ConnectedDocumentList';
 import ConnectedDocumentEditor from '../connectors/ConnectedDocumentEditor';
@@ -12,12 +13,12 @@ export default function DocumentPreview()
         <Container columns>
 
             <Container rows fill>
-                <b>Search results</b>
+                <Header>Search results</Header>
                 <ConnectedDocumentList />
             </Container>
 
             <Container rows fill="2">
-                <b>Document preview</b>
+                <Header>Document preview</Header>
                 <ConnectedDocumentEditor />
             </Container>
 

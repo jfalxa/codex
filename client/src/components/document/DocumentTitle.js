@@ -29,6 +29,16 @@ const TitleInput = styled.input`
 `;
 
 
+const Title = styled.h1`
+
+    margin: 0;
+    padding: 0 15px;
+
+    font-size: 1.5em;
+    font-family: ${ titleFont };
+
+`;
+
 
 function DocumentTitleEditing( { value, onChange, onStopEdit } )
 {
@@ -47,17 +57,6 @@ function DocumentTitleEditing( { value, onChange, onStopEdit } )
 
     );
 }
-
-
-const Title = styled.h1`
-
-    margin: 0;
-    padding: 0 15px;
-
-    font-size: 1.5em;
-    font-family: ${ titleFont };
-
-`;
 
 
 function DocumentTitleShowing( { value, onStartEdit } )
