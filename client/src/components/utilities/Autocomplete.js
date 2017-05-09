@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Suggestion, Suggestions } from './Suggestion';
-import HotKeysContainer            from '../layout/HotKeysContainer';
+import HotKeysContainer            from './HotKeysContainer';
 import keyMap                      from '../../constants/keyMap';
 import circleMotion                from '../../utils/circleMotion';
 

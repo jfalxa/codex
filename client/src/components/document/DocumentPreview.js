@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header                  from '../utilities/Header';
-import Container               from '../layout/Container';
+import Container               from '../utilities/Container';
 import ConnectedDocumentList   from '../connectors/ConnectedDocumentList';
 import ConnectedDocumentEditor from '../connectors/ConnectedDocumentEditor';
 

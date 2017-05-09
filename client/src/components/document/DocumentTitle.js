@@ -3,8 +3,8 @@ import styled   from 'styled-components';
 import EditIcon from 'react-icons/lib/md/edit';
 import DoneIcon from 'react-icons/lib/md/done';
 
+import DocumentTitleContainer from './DocumentTitleContainer';
 import EditableText           from '../utilities/EditableText';
-import DocumentTitleContainer from '../layout/DocumentTitleContainer';
 import * as theme             from '../../style/theme';
 
 

@@ -2,7 +2,7 @@ import React     from 'react';
 import styled    from 'styled-components';
 import ClearIcon from 'react-icons/lib/md/clear';
 
-import TagContainer from '../layout/TagContainer';
+import TagContainer from './TagContainer';
 
 
 const Tag = styled.span`

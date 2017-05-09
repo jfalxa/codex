@@ -2,8 +2,8 @@ import React     from 'react';
 import { Route } from 'react-router-dom';
 
 import Topbar                   from './layout/Topbar';
-import Container                from './layout/Container';
 import MainContainer            from './layout/MainContainer';
+import Container                from './utilities/Container';
 import DocumentPreview          from './document/DocumentPreview';
 import ConnectedDocumentCreator from './connectors/ConnectedDocumentCreator';
 import ConnectedDocumentEditor  from './connectors/ConnectedDocumentEditor';

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import DocumentListItem        from './DocumentListItem';
-import DocumentListContainer   from '../layout/DocumentListContainer';
-import ScrollableListContainer from '../layout/ScrollableListContainer';
+import DocumentListContainer   from './DocumentListContainer';
+import ScrollableListContainer from '../utilities/ScrollableListContainer';
 
 
 export default class DocumentList extends React.Component

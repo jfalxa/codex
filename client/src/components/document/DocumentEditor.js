@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Container from '../layout/Container';
 import Document  from './Document';
+import Container from '../utilities/Container';
 
 
 export default class DocumentEditor extends React.Component

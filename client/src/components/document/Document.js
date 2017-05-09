@@ -2,10 +2,10 @@ import React from 'react';
 
 import DocumentTitle           from './DocumentTitle';
 import DocumentTag             from './DocumentTag';
-import DocumentContainer       from '../layout/DocumentContainer';
-import ScrollableListContainer from '../layout/ScrollableListContainer';
-import TagAutocomplete         from '../document/TagAutocomplete';
-import TagInput                from '../document/TagInput';
+import DocumentContainer       from './DocumentContainer';
+import TagAutocomplete         from './TagAutocomplete';
+import TagInput                from './TagInput';
+import ScrollableListContainer from '../utilities/ScrollableListContainer';
 
 
 export default class Document extends React.Component
