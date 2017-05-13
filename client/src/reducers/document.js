@@ -54,6 +54,11 @@ function handleResetDoc()
 
 function handleLoadDoc( state, action )
 {
+    if ( action.error )
+    {
+        return state;
+    }
+
     const change =
     {
         doc : { $set : action.payload }
@@ -76,6 +81,11 @@ function handleSetFragment( state, action )
 
 function handleAutocomplete( state, action )
 {
+    if ( action.error )
+    {
+        return state;
+    }
+
     const change =
     {
         suggestions : { $set : action.payload }
@@ -101,6 +111,11 @@ function handleChangeName( state, action )
 
 function handleAddTag( state, action )
 {
+    if ( action.error )
+    {
+        return state;
+    }
+
     // make sure we add tags only if they're not already added
     const tag    = action.payload;
     const hasTag = _some( state.doc.tags, tag );
@@ -124,6 +139,11 @@ function handleAddTag( state, action )
 
 function handleRemoveTag( state, action )
 {
+    if ( action.error )
+    {
+        return state;
+    }
+
     // remove all tags matching what's specified in the action
     const tags = _reject( state.doc.tags, action.payload );
 

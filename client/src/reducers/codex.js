@@ -52,7 +52,7 @@ function handleAutocomplete( state, action )
 {
     // when the user removes a term from search an autocomplete query will be
     // triggered with the wrong fragment. This condition ignores it.
-    if ( !state.fragment )
+    if ( action.error || !state.fragment )
     {
         return state;
     }
