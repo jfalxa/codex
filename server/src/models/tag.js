@@ -4,6 +4,11 @@ const pgp = require( 'pg-promise' )( { capSQL : true } );
 
 exports.createTag = function createTag( tag )
 {
+    if ( !tag )
+    {
+        return Promise.resolve();
+    }
+
     const query = 'INSERT INTO tags ( name )'
         + ' VALUES ( $1 )'
         + ' ON CONFLICT( name ) DO NOTHING';
@@ -20,7 +25,7 @@ exports.createManyTags = function createManyTags( manyTags )
     }
 
     // batch all the tag insertion in one query
-    const query = pgp.helpers.insert( manyTags, ['name'], 'tags' )
+    const query = pgp.helpers.insert( manyTags, ['value'], 'tags' )
         + ' ON CONFLICT( name ) DO NOTHING';
 
     return db.none( query );

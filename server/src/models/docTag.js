@@ -2,25 +2,51 @@ const db  = require( '../services/db' );
 const pgp = require( 'pg-promise' )( { capSQL : true } );
 
 
+function setDefaultLabels( tags )
+{
+    // give default values to undefined labels
+    return tags.map( tag => ( {
+        type  : tag.type || '_',
+        value : tag.value
+    } ) );
+}
+
+
+function removeDefaultLabels( tags )
+{
+    // replace labels with default value with null
+    return tags.map( tag => ( {
+        type  : ( tag.type === '_' ) ? null : tag.type,
+        value : tag.value
+    } ) );
+}
+
+
 exports.getDocTags = function getDocTags( docID )
 {
-    const query = 'SELECT t.id, t.name FROM tags t'
-        + ' INNER JOIN doc_tags dt ON t.id = dt.tag_id'
+    const query = 'SELECT dt.id, l.name as type, t.name as value'
+        + ' FROM doc_tags dt'
+        + ' LEFT JOIN labels l ON l.id = dt.label_id'
+        + ' INNER JOIN tags t ON t.id = dt.tag_id'
         + ' WHERE dt.document_id = $1';
 
-    return db.any( query, docID );
+    return db.any( query, docID )
+        .then( removeDefaultLabels );
 };
 
 
-exports.addDocTag = function addDocTag( docID, tag )
+exports.addDocTag = function addDocTag( docID, optionalLabel, tag )
 {
-    const query = 'INSERT INTO doc_tags ( document_id, tag_id )'
-        + ' SELECT $1, t.id FROM tags t'
-        + ' WHERE t.name = $2'
-        + ' ON CONFLICT ( document_id, tag_id ) DO NOTHING'
-        + ' RETURNING tag_id';
+    const label = optionalLabel || '_';
 
-    return db.oneOrNone( query, [docID, tag] );
+    const query = 'INSERT INTO doc_tags ( document_id, label_id, tag_id )'
+        + ' SELECT $1, l.id, t.id'
+        + ' FROM labels l, tags t'
+        + ' WHERE ( l.name, t.name ) = ( $2, $3 )'
+        + ' ON CONFLICT ( document_id, label_id, tag_id ) DO NOTHING'
+        + ' RETURNING id';
+
+    return db.oneOrNone( query, [docID, label, tag] );
 };
 
 
@@ -31,14 +57,19 @@ exports.addManyDocTags = function addManyDocTags( docID, manyTags )
         return Promise.resolve();
     }
 
-    const tagNames = manyTags.map( tag => tag.name );
+    // replace null labels with the default name
+    const tags = setDefaultLabels( manyTags );
 
-    const query = 'INSERT INTO doc_tags ( document_id, tag_id )'
-        + ' SELECT $1, t.id FROM tags t'
-        + ' WHERE t.name IN ( $2:csv )'
-        + ' ON CONFLICT ( document_id, tag_id ) DO NOTHING';
+    // prepare label/tag pairs to grab for insertion
+    const tagValues = pgp.helpers.values( tags, ['type', 'value'] );
 
-    return db.none( query, [docID, tagNames] );
+    const query = 'INSERT INTO doc_tags ( document_id, label_id, tag_id )'
+        + ' SELECT $1, l.id, t.id'
+        + ' FROM labels l, tags t'
+        + ' WHERE ( l.name, t.name ) IN ( ' + tagValues + ' )'
+        + ' ON CONFLICT ( document_id, label_id, tag_id ) DO NOTHING';
+
+    return db.none( query, docID );
 };
 
 

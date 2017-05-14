@@ -1,4 +1,5 @@
 const Document = require( '../models/document' );
+const Label    = require( '../models/label' );
 const Tag      = require( '../models/tag' );
 const DocTag   = require( '../models/docTag' );
 
@@ -11,6 +12,7 @@ exports.createDocument = function createDocument( req, res, next )
 
     Document.createDocument( name )
         .then( data => ( docID = data.id ) )
+        .then( () => Label.createManyLabels( tags ) )
         .then( () => Tag.createManyTags( tags ) )
         .then( () => DocTag.addManyDocTags( docID, tags ) )
         .then( () => res.status( 201 ).json( { id : docID } ) )
@@ -61,11 +63,12 @@ exports.deleteDocument = function deleteDocument( req, res, next )
 
 exports.addDocTag = function addDocTag( req, res, next )
 {
-    const { docID }    = req.params;
-    const { name:tag } = req.body;
+    const { docID }                 = req.params;
+    const { type:label, value:tag } = req.body;
 
-    Tag.createTag( tag )
-        .then( () => DocTag.addDocTag( docID, tag ) )
+    Label.createLabel( label )
+        .then( () => Tag.createTag( tag ) )
+        .then( () => DocTag.addDocTag( docID, label, tag ) )
         .then( data =>
         {
             // tag already exists
@@ -74,7 +77,7 @@ exports.addDocTag = function addDocTag( req, res, next )
                 res.status( 204 ).end();
             }
 
-            res.status( 201 ).json( { id : data.tag_id, name : tag } );
+            res.status( 201 ).json( { id : data.id, type : label, value : tag } );
         } )
         .catch( error => res.status( 500 ).json( { error } ) );
 };
