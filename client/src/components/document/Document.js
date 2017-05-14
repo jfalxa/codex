@@ -24,7 +24,8 @@ export default class Document extends React.Component
         (
             <DocumentTag
                 key={ i }
-                name={ tag.name }
+                name={ tag.value }
+                label={ tag.type }
                 onRemove={ () => onRemoveTag( tag ) } />
         ) );
     }

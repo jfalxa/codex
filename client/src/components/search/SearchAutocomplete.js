@@ -14,6 +14,7 @@ const SearchAutocomplete = styled( Autocomplete )`
     {
         font-family: ${ theme.titleFont };
     }
+
 `;
 
 
