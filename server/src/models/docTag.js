@@ -73,23 +73,12 @@ exports.addManyDocTags = function addManyDocTags( docID, manyTags )
 };
 
 
-exports.updateDocTag = function updateDocTag( docID, oldTagID, newTagID )
-{
-    const query = 'UPDATE doc_tags'
-        + ' SET tag_id = $1'
-        + ' WHERE document_id = $2'
-        + ' AND tag_id = $3';
-
-    return db.none( query, [newTagID, docID, oldTagID] );
-};
-
-
-exports.removeDocTag = function removeDocTag( docID, tagID )
+exports.removeDocTag = function removeDocTag( docID, docTagID )
 {
     const query = 'DELETE FROM doc_tags'
-        + ' WHERE document_id = $1'
-        + ' AND tag_id = $2';
+        + ' WHERE id = $2'
+        + ' AND document_id = $1';
 
-    return db.none( query, [docID, tagID] );
+    return db.none( query, [docID, docTagID] );
 };
 

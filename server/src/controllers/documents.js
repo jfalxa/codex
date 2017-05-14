@@ -83,21 +83,11 @@ exports.addDocTag = function addDocTag( req, res, next )
 };
 
 
-exports.updateDocTag = function updateDocTag( req, res, next )
-{
-    const { docID, tagID } = req.params;
-
-    DocTag.updateDocTag( docID, tagID, req.body.id )
-        .then( () => res.status( 204 ).end() )
-        .catch( error => res.status( 500 ).json( { error } ) );
-};
-
-
 exports.removeDocTag = function removeDocTag( req, res, next )
 {
-    const { docID, tagID } = req.params;
+    const { docID, docTagID } = req.params;
 
-    DocTag.removeDocTag( docID, tagID )
+    DocTag.removeDocTag( docID, docTagID )
         .then( () => res.status( 204 ).end() )
         .catch( error => res.status( 500 ).json( { error } ) );
 };

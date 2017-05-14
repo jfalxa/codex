@@ -11,8 +11,7 @@ documents.put( '/:docID', documentsCtrl.updateDocument );
 documents.delete( '/:docID', documentsCtrl.deleteDocument );
 
 documents.post( '/:docID/tags', documentsCtrl.addDocTag );
-documents.put( '/:docID/tags/:tagID', documentsCtrl.updateDocTag );
-documents.delete( '/:docID/tags/:tagID', documentsCtrl.removeDocTag );
+documents.delete( '/:docID/tags/:docTagID', documentsCtrl.removeDocTag );
 
 
 module.exports = documents;
