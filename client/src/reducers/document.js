@@ -38,8 +38,8 @@ export const setFragment     = createAction( SET_FRAGMENT );
 export const apiAutocomplete = createAction( AUTOCOMPLETE, api.autocomplete );
 export const apiAddTag       = createAction( ADD_TAG, api.addDocTag );
 
-export const apiRemoveTag = createAction( REMOVE_TAG, ( docID, tagID ) =>
-    api.removeDocTag( docID, tagID ).then( () => ( { id : tagID } ) ) );
+export const apiRemoveTag = createAction( REMOVE_TAG, ( docID, docTagID ) =>
+    api.removeDocTag( docID, docTagID ).then( () => ( { id : docTagID } ) ) );
 
 
 // -------------------------------------------------------------------------- //

@@ -60,24 +60,12 @@ export function addDocTag( docID, tag )
 }
 
 
-export function updateDocTag( docID, tagID, tag )
-{
-    const options =
-    {
-        method : 'PUT',
-        body   : JSON.stringify( tag )
-    };
-
-    return callAPI( `/docs/${ docID }/tags/${ tagID }`, options );
-}
-
-
-export function removeDocTag( docID, tagID )
+export function removeDocTag( docID, docTagID )
 {
     const options =
     {
         method : 'DELETE'
     };
 
-    return callAPI( `/docs/${ docID }/tags/${ tagID }`, options );
+    return callAPI( `/docs/${ docID }/tags/${ docTagID }`, options );
 }

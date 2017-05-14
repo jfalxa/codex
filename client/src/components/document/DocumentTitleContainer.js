@@ -6,6 +6,8 @@ const DocumentTitleContainer = styled.div`
 
     ${ container }
 
+    flex-shrink: 0;
+
     height: 3.4em;
     margin-bottom: 25px;
 
