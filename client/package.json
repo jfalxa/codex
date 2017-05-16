@@ -13,7 +13,7 @@
     "react-hotkeys": "^0.10.0",
     "react-icons": "^2.2.5",
     "react-redux": "^5.0.4",
-    "react-router-dom": "next",
+    "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-actions": "^2.0.3",
     "redux-promise": "^0.5.3",
