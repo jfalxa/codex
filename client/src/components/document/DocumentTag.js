@@ -22,9 +22,17 @@ const Label = styled.span`
 
 const Tag = styled.span`
 
-    flex: 3;
+    flex: 4;
 
-    margin-left: 20px;
+`;
+
+
+const Separator = styled.span`
+
+    margin: 0 20px;
+
+    color: ${ theme.secondaryText };
+    font-weight: bold;
 
 `;
 
@@ -33,7 +41,6 @@ const RemoveIcon = styled( ClearIcon )`
 
     flex-shrink: 0;
     height: 1.2em;
-    margin-left: 15px;
     cursor: pointer;
 
 `;
@@ -47,6 +54,7 @@ export default function DocumentTag( { name, label, onRemove } )
 
             <Container fill columns mainCenter crossCenter>
                 <Label>{ label }</Label>
+                <Separator>·</Separator>
                 <Tag>{ name }</Tag>
             </Container>
 

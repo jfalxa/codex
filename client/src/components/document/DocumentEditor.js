@@ -2,6 +2,7 @@ import React from 'react';
 
 import Document  from './Document';
 import Container from '../utilities/Container';
+import parseTag  from '../../utils/parseTag';
 
 
 export default class DocumentEditor extends React.Component
@@ -37,7 +38,7 @@ export default class DocumentEditor extends React.Component
     handleAddTag = ( tag ) =>
     {
         const { doc, apiAddTag } = this.props;
-        apiAddTag( doc.id, { name : tag } );
+        apiAddTag( doc.id, parseTag( tag ) );
     }
 
 

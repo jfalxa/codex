@@ -2,6 +2,7 @@ import React from 'react';
 
 import Document  from './Document';
 import Container from '../utilities/Container';
+import parseTag  from '../../utils/parseTag';
 
 
 export default class DocumentCreator extends React.Component
@@ -28,7 +29,7 @@ export default class DocumentCreator extends React.Component
 
     handleAddTag = ( tag ) =>
     {
-        this.props.addTag( { name : tag } );
+        this.props.addTag( parseTag( tag ) );
     }
 
 
