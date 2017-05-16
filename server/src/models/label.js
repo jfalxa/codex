@@ -25,7 +25,7 @@ exports.createManyLabels = function createManyLabels( manyLabels )
     }
 
     // batch all the label insertion in one query
-    const query = pgp.helpers.insert( manyLabels, ['type'], 'labels' )
+    const query = pgp.helpers.insert( manyLabels, ['name'], 'labels' )
         + ' ON CONFLICT( name ) DO NOTHING';
 
     return db.none( query );

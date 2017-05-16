@@ -5,20 +5,14 @@ const pgp = require( 'pg-promise' )( { capSQL : true } );
 function setDefaultLabels( tags )
 {
     // give default values to undefined labels
-    return tags.map( tag => ( {
-        type  : tag.type || '_',
-        value : tag.value
-    } ) );
+    return tags.map( tag => Object.assign( {}, tag, { type : tag.type || '_' } ) );
 }
 
 
 function removeDefaultLabels( tags )
 {
     // replace labels with default value with null
-    return tags.map( tag => ( {
-        type  : ( tag.type === '_' ) ? null : tag.type,
-        value : tag.value
-    } ) );
+    return tags.map( tag => Object.assign( {}, tag, { type : ( tag.type === '_' ) ? null : tag.type } ) );
 }
 
 

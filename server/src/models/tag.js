@@ -25,7 +25,7 @@ exports.createManyTags = function createManyTags( manyTags )
     }
 
     // batch all the tag insertion in one query
-    const query = pgp.helpers.insert( manyTags, ['value'], 'tags' )
+    const query = pgp.helpers.insert( manyTags, ['name'], 'tags' )
         + ' ON CONFLICT( name ) DO NOTHING';
 
     return db.none( query );

@@ -10,10 +10,13 @@ exports.createDocument = function createDocument( req, res, next )
 
     const { name, tags } = req.body;
 
+    const manyTags   = tags.map( tag => ( { name : tag.value } ) );
+    const manyLabels = tags.filter( tag => tag.type ).map( tag => ( { name : tag.type } ) );
+
     Document.createDocument( name )
         .then( data => ( docID = data.id ) )
-        .then( () => Label.createManyLabels( tags ) )
-        .then( () => Tag.createManyTags( tags ) )
+        .then( () => Tag.createManyTags( manyTags ) )
+        .then( () => Label.createManyLabels( manyLabels ) )
         .then( () => DocTag.addManyDocTags( docID, tags ) )
         .then( () => res.status( 201 ).json( { id : docID } ) )
         .catch( error => res.status( 500 ).json( { error } ) );
