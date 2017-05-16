@@ -13,7 +13,7 @@ exports.createTag = function createTag( tag )
         + ' VALUES ( $1 )'
         + ' ON CONFLICT( name ) DO NOTHING';
 
-    return db.oneOrNone( query, tag );
+    return db.none( query, tag );
 };
 
 
