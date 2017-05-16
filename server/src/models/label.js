@@ -13,7 +13,7 @@ exports.createLabel = function createLabel( label )
         + ' VALUES ( $1 )'
         + ' ON CONFLICT( name ) DO NOTHING';
 
-    return db.oneOrNone( query, label );
+    return db.none( query, label );
 };
 
 
