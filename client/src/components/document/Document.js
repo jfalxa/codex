@@ -42,6 +42,7 @@ export default class Document extends React.Component
 
                 <DocumentTitle
                     edit={ edit }
+                    id={ doc.id }
                     value={ doc.name }
                     onChange={ this.handleChangeName }
                     onEdit={ onSaveDoc } />

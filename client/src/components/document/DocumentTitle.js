@@ -1,9 +1,12 @@
 import React    from 'react';
 import styled   from 'styled-components';
+import { Link } from 'react-router-dom';
+import LinkIcon from 'react-icons/lib/md/link';
 import EditIcon from 'react-icons/lib/md/edit';
 import DoneIcon from 'react-icons/lib/md/done';
 
 import DocumentTitleContainer from './DocumentTitleContainer';
+import Container              from '../utilities/Container';
 import EditableText           from '../utilities/EditableText';
 import * as theme             from '../../style/theme';
 
@@ -44,7 +47,7 @@ function DocumentTitleEditing( { value, onChange, onStopEdit } )
 {
     return (
 
-        <DocumentTitleContainer columns mainSpaceBetween crossCenter>
+        <Container fill columns mainSpaceBetween crossCenter>
 
             <TitleInput
                 value={ value }
@@ -53,7 +56,7 @@ function DocumentTitleEditing( { value, onChange, onStopEdit } )
 
             <DoneIcon onClick={ onStopEdit } size="20" />
 
-        </DocumentTitleContainer>
+        </Container>
 
     );
 }
@@ -63,10 +66,10 @@ function DocumentTitleShowing( { value, onStartEdit } )
 {
     return (
 
-        <DocumentTitleContainer columns mainSpaceBetween crossCenter>
+        <Container fill columns mainSpaceBetween crossCenter>
             <Title>{ value }</Title>
             <EditIcon onClick={ onStartEdit } size="20" />
-        </DocumentTitleContainer>
+        </Container>
 
     );
 }
@@ -76,9 +79,17 @@ export default function DocumentTitle( props )
 {
     return (
 
-        <EditableText { ...props }
-            renderEditing={ DocumentTitleEditing }
-            renderShowing={ DocumentTitleShowing } />
+        <DocumentTitleContainer columns crossCenter>
+
+            <EditableText { ...props }
+                renderEditing={ DocumentTitleEditing }
+                renderShowing={ DocumentTitleShowing } />
+
+            <Link to={ `/docs/${ props.id }` } title="Link to document">
+                <LinkIcon size="20" />
+            </Link>
+
+        </DocumentTitleContainer>
 
     );
 }
