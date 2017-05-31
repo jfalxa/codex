@@ -40,6 +40,15 @@ export default class Search extends React.Component
     }
 
 
+    getSuggestions = ( value ) =>
+    {
+        const cursor = this.getInput().selectionStart;
+        const edited = this.isolateEdited( value, cursor );
+
+        this.props.apiAutocomplete( edited[1] );
+    }
+
+
     searchDocs( search )
     {
         const { setSearch, apiSearchDocs } = this.props;
@@ -76,14 +85,6 @@ export default class Search extends React.Component
         this.props.history.push( '/' );
     }
 
-
-    getSuggestions = ( value ) =>
-    {
-        const cursor = this.getInput().selectionStart;
-        const edited = this.isolateEdited( value, cursor );
-
-        this.props.apiAutocomplete( edited[1] );
-    }
 
 
     render()

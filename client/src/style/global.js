@@ -5,7 +5,7 @@ import * as theme from './theme';
 
 injectGlobal`
 
-    html, body, #main
+    html, body
     {
         margin: 0;
         padding: 0;
@@ -26,6 +26,7 @@ injectGlobal`
     #main
     {
         display: flex;
+        min-height: 100%;
         background-color: ${ theme.background };
     }
 
