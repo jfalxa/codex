@@ -73,12 +73,12 @@ export default class Autocomplete extends React.Component
             return;
         }
 
-        const { suggestions, onChange } = this.props;
+        const { suggestions, onAutocomplete } = this.props;
 
         // navigate through suggestions and go back to the first when the end is reached
         const highlighted = circleMotion( this.state.highlighted, suggestions.length, movement );
 
-        onChange( suggestions[highlighted].name, true );
+        onAutocomplete( suggestions[highlighted].name, true );
         this.setState( { highlighted } );
     }
 

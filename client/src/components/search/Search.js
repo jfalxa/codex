@@ -1,94 +1,101 @@
-import React from 'react';
+import React           from 'react';
+import { findDOMNode } from 'react-dom';
 
 import SearchInput        from './SearchInput';
 import SearchAutocomplete from './SearchAutocomplete';
 
-const LAST_WORD_RX = / *([^" ]+|"[^"]+") *$/;
-const NEW_TERM_RX  = /^ *( |\(|("[\w ]+"|[\w]+) *( |,|\)) *)/;
+
+const LEFT_RX  = /^((?:[^"\s]|"[^"]+"|\s)*?)([^"\s]+|"[^"]*"?)$/;
+const RIGHT_RX = /^([^"\s]+|[^"]*")((?:[^"\s]|"[^"]+"|\s)*?)$/;
 
 
 export default class Search extends React.Component
 {
-    getFragment( value )
+    componentDidUpdate()
     {
-        return value.replace( this.props.search, '' );
+        this.getInput().setSelectionRange( this.cursor, this.cursor );
     }
 
 
-    handleChange = ( value, isSuggestion ) =>
+    getInput()
     {
-        const { search, setFragment, setSearch, apiSearchDocs } = this.props;
+        return findDOMNode( this ).querySelector( 'input' );
+    }
 
-        // Change is coming from suggestions : append it to the current search
-        if ( isSuggestion )
-        {
-            const suggestion = value.includes( ' ' )
-                ? `"${ value }"`
-                : value;
 
-            setFragment( suggestion );
-            apiSearchDocs( search + suggestion );
-        }
-        else
-        {
-            const fragment = this.getFragment( value );
+    isolateEdited( value, cursor )
+    {
+        const left  = value.slice( 0, cursor );
+        const right = value.slice( cursor );
 
-            // Search is empty
-            if ( value.length === 0 )
-            {
-                setSearch( '' );
-            }
-            // User is removing words from search
-            else if ( value.length < search.length )
-            {
-                setSearch( search.replace( LAST_WORD_RX, '' ) );
-            }
-            // A new search term was added so we update the search
-            else if ( NEW_TERM_RX.test( fragment ) )
-            {
-                setSearch( value );
-            }
-            // User is editing last search term
-            else
-            {
-                setFragment( fragment );
-            }
+        const leftMatch  = left.match( LEFT_RX );
+        const rightMatch = right.match( RIGHT_RX );
 
-            apiSearchDocs( value );
-        }
+        const leftStart  = leftMatch ? leftMatch[1] : left;
+        const rightStart = rightMatch ? rightMatch[1] : '';
+        const leftEnd    = leftMatch ? leftMatch[2] : '';
+        const rightEnd   = rightMatch ? rightMatch[2] : right;
+
+        return [leftStart, leftEnd + rightStart, rightEnd];
+    }
+
+
+    searchDocs( search )
+    {
+        const { setSearch, apiSearchDocs } = this.props;
+
+        setSearch( search );
+        apiSearchDocs( search );
+    }
+
+
+    handleChange = ( value ) =>
+    {
+        this.cursor = this.getInput().selectionStart;
+        this.searchDocs( value );
+    }
+
+
+    handleAutocomplete = ( suggestion ) =>
+    {
+        const finalSuggestion = suggestion.includes( ' ' )
+            ? `"${ suggestion }"`
+            : suggestion;
+
+        const cursor           = this.getInput().selectionStart;
+        const [left, _, right] = this.isolateEdited( this.props.search, cursor );
+
+        this.cursor = ( left + finalSuggestion ).length;
+        this.searchDocs( left + finalSuggestion + right );
     }
 
 
     handleSubmit = () =>
     {
-        const { search, fragment, history, setSearch, apiSearchDocs } = this.props;
-
-        const newSearch = ( search + fragment );
-
-        setSearch( newSearch );
-        apiSearchDocs( newSearch );
-
-        history.push( '/' );
+        this.props.apiAutocomplete( '' );
+        this.props.history.push( '/' );
     }
 
 
     getSuggestions = ( value ) =>
     {
-        const fragment = this.getFragment( value ).trim();
+        const cursor = this.getInput().selectionStart;
+        const edited = this.isolateEdited( value, cursor );
 
-        this.props.apiAutocomplete( fragment );
+        this.props.apiAutocomplete( edited[1] );
     }
 
 
     render()
     {
-        const { search, fragment, suggestions } = this.props;
+        const { search, suggestions } = this.props;
 
         return (
 
             <SearchAutocomplete
-                value={ search + fragment }
+                value={ search }
                 suggestions={ suggestions }
+                onAutocomplete={ this.handleAutocomplete }
                 onChange={ this.handleChange }
                 onSubmit={ this.handleSubmit }
                 getSuggestions={ this.getSuggestions }

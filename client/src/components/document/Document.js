@@ -49,6 +49,7 @@ export default class Document extends React.Component
                 <TagAutocomplete
                     value={ fragment }
                     suggestions={ suggestions }
+                    onAutocomplete={ onSetFragment }
                     onChange={ onSetFragment }
                     onSubmit={ onAddTag }
                     getSuggestions={ getSuggestions }

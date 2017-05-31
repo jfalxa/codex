@@ -10,7 +10,6 @@ import * as api from '../services/api';
 
 const SEARCH_DOCS   = 'codex/SEARCH_DOCS ';
 const SET_SEARCH    = 'codex/SET_SEARCH';
-const SET_FRAGMENT  = 'codex/SET_FRAGMENT';
 const AUTOCOMPLETE  = 'codex/AUTOCOMPLETE';
 const SET_HIGHLIGHT = 'codex/SET_HIGHLIGHT';
 
@@ -22,7 +21,6 @@ const SET_HIGHLIGHT = 'codex/SET_HIGHLIGHT';
 export const apiSearchDocs   = createAction( SEARCH_DOCS, api.searchDocs );
 export const apiAutocomplete = createAction( AUTOCOMPLETE, api.autocomplete );
 export const setSearch       = createAction( SET_SEARCH );
-export const setFragment     = createAction( SET_FRAGMENT );
 export const setHighlight    = createAction( SET_HIGHLIGHT );
 
 
@@ -50,9 +48,7 @@ function handleSearchDocs( state, action )
 
 function handleAutocomplete( state, action )
 {
-    // when the user removes a term from search an autocomplete query will be
-    // triggered with the wrong fragment. This condition ignores it.
-    if ( action.error || !state.fragment )
+    if ( action.error )
     {
         return state;
     }
@@ -70,21 +66,7 @@ function handleSetSearch( state, action )
 {
     const change =
     {
-        search      : { $set : action.payload },
-        fragment    : { $set : '' },
-        suggestions : { $set : [] }
-    };
-
-    return update( state, change );
-}
-
-
-
-function handleSetFragment( state, action )
-{
-    const change =
-    {
-        fragment : { $set : action.payload }
+        search : { $set : action.payload },
     };
 
     return update( state, change );
@@ -109,7 +91,6 @@ function handleSetHighlight( state, action )
 const defaultState =
 {
     search      : '',
-    fragment    : '',
     suggestions : [],
     documents   : [],
     highlighted : 0
@@ -127,9 +108,6 @@ export default function codexReducer( state=defaultState, action )
 
         case SET_SEARCH:
             return handleSetSearch( state, action );
-
-        case SET_FRAGMENT:
-            return handleSetFragment( state, action );
 
         case SET_HIGHLIGHT:
             return handleSetHighlight( state, action );
