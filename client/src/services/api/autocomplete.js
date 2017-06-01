@@ -3,7 +3,7 @@ import qs from 'qs';
 import callAPI from './callAPI';
 
 
-export function autocomplete( fragment )
+export function autocomplete( category, fragment )
 {
     if ( !fragment )
     {
@@ -12,6 +12,6 @@ export function autocomplete( fragment )
 
     const params = qs.stringify( { fragment } );
 
-    return callAPI( `/autocomplete?${ params }` );
+    return callAPI( `/autocomplete/${ category }?${ params }` );
 }
 

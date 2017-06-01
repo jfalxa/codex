@@ -5,8 +5,28 @@ import SearchInput        from './SearchInput';
 import SearchAutocomplete from './SearchAutocomplete';
 
 
-const LEFT_RX  = /^((?:[^"\s]|"[^"]+"|\s)*?)([^"\s]+|"[^"]*"?)$/;
-const RIGHT_RX = /^([^"\s]+|[^"]*")((?:[^"\s]|"[^"]+"|\s)*?)$/;
+const WHITESPACE_RX = /\s/;
+const LEFT_RX       = /^((?:[^"\s]|"[^"]+"|\s)*?)([^"\s]+|"[^"]*"?)$/;
+const RIGHT_RX      = /^([^"\s]+|[^"]*")((?:[^"\s]|"[^"]+"|\s)*?)$/;
+
+
+
+function formatSuggestion( suggestion, isLabel )
+{
+    let formattedSuggestion = suggestion;
+
+    if ( WHITESPACE_RX.test( suggestion ) )
+    {
+        formattedSuggestion = `"${ formattedSuggestion }"`;
+    }
+
+    if ( isLabel )
+    {
+        formattedSuggestion = `~${ formattedSuggestion }`;
+    }
+
+    return formattedSuggestion;
+}
 
 
 export default class Search extends React.Component
@@ -43,9 +63,11 @@ export default class Search extends React.Component
     getSuggestions = ( value ) =>
     {
         const cursor = this.getInput().selectionStart;
-        const edited = this.isolateEdited( value, cursor );
+        const edited = this.isolateEdited( value, cursor )[1];
 
-        this.props.apiAutocomplete( edited[1] );
+        const category = ( edited[0] === '~' ) ? 'label' : 'tag';
+
+        this.props.apiAutocomplete( category, edited );
     }
 
 
@@ -67,15 +89,14 @@ export default class Search extends React.Component
 
     handleAutocomplete = ( suggestion ) =>
     {
-        const finalSuggestion = suggestion.includes( ' ' )
-            ? `"${ suggestion }"`
-            : suggestion;
+        const cursor              = this.getInput().selectionStart;
+        const [left, prev, right] = this.isolateEdited( this.props.search, cursor );
 
-        const cursor           = this.getInput().selectionStart;
-        const [left, _, right] = this.isolateEdited( this.props.search, cursor );
+        const isLabel             = ( prev[0] === '~' )
+        const formattedSuggestion = formatSuggestion( suggestion, isLabel );
 
-        this.cursor = ( left + finalSuggestion ).length;
-        this.searchDocs( left + finalSuggestion + right );
+        this.cursor = ( left + formattedSuggestion ).length;
+        this.searchDocs( left + formattedSuggestion + right );
     }
 
 
