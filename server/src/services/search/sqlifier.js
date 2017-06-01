@@ -17,6 +17,14 @@ function toSQL( operation )
         return 'SELECT id FROM documents'
             + ' WHERE id NOT IN ( ' + toSQL( operation[1] ) + ' )';
     }
+    else if ( operation.length === 2 )
+    {
+        const query = 'SELECT document_id FROM doc_tags'
+            + ' WHERE label_id IN ( SELECT id FROM labels WHERE name = $1 )'
+            + ' AND tag_id IN ( SELECT id FROM tags WHERE name = $2 )';
+
+        return pgp.as.format( query, operation );
+    }
 
     const [operator, firstMember, ...otherMembers] = operation;
 

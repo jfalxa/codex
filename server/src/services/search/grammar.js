@@ -1,3 +1,4 @@
+// @TODO do something with the naming, it's getting out of hand.
 module.exports =
 `
 start
@@ -19,12 +20,15 @@ not
     = "not"
 
 word
-    = $[a-zA-Z0-9\-]+
+    = $[^"'~,\(\) ]+
     / '"' str:$[^"]+ '"' { return str }
     / "'" str:$[^']+ "'" { return str }
 
 set
     = word
+
+label
+    = "~" lbl:word { return lbl }
 
 expression
     = union
@@ -46,5 +50,6 @@ leftprimary
 primary
     = "(" _ exp:expression _ ")" { return exp }
     / not _ opd:primary { return ['not', opd] }
+    / type:label __ value:set { return [type, value] }
     / set
 `;

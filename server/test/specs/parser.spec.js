@@ -156,4 +156,13 @@ test( "parser: 'String with Spaces' and 'Other Spaced String'", t =>
 } );
 
 
+test( 'parser: ~label set or ~other-label other-set', t =>
+{
+    const query = '~label set or ~other-label other-set';
+    const result = ['or', ['label', 'set'], ['other-label', 'other-set']];
+
+    t.deepEqual( parse( query ), result );
+} );
+
+
 test.todo( 'parser: Syntax error in query' );
