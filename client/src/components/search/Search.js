@@ -22,7 +22,7 @@ function formatSuggestion( suggestion, isLabel )
 
     if ( isLabel )
     {
-        formattedSuggestion = `~${ formattedSuggestion }`;
+        formattedSuggestion = `.${ formattedSuggestion }`;
     }
 
     return formattedSuggestion;
@@ -65,7 +65,7 @@ export default class Search extends React.Component
         const cursor = this.getInput().selectionStart;
         const edited = this.isolateEdited( value, cursor )[1];
 
-        const category = ( edited[0] === '~' ) ? 'label' : 'tag';
+        const category = ( edited[0] === '.' ) ? 'label' : 'tag';
 
         this.props.apiAutocomplete( category, edited );
     }
@@ -92,7 +92,7 @@ export default class Search extends React.Component
         const cursor              = this.getInput().selectionStart;
         const [left, prev, right] = this.isolateEdited( this.props.search, cursor );
 
-        const isLabel             = ( prev[0] === '~' )
+        const isLabel             = ( prev[0] === '.' )
         const formattedSuggestion = formatSuggestion( suggestion, isLabel );
 
         this.cursor = ( left + formattedSuggestion ).length;

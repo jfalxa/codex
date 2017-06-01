@@ -8,7 +8,7 @@ import TagInput                from './TagInput';
 import ScrollableListContainer from '../utilities/ScrollableListContainer';
 
 
-const LABEL_TAG_RX = /^(?:~([^~\s]*))?\s*([^~]*)$/;
+const LABEL_TAG_RX = /^(?:\.([^\s]*))?\s*([^\.]*)$/;
 
 
 export default class Document extends React.Component
@@ -45,7 +45,7 @@ export default class Document extends React.Component
 
         if ( type && !value )
         {
-            onSetFragment( `~${ suggestion }` );
+            onSetFragment( `.${ suggestion }` );
         }
         else if ( !type && value )
         {
@@ -53,7 +53,7 @@ export default class Document extends React.Component
         }
         else
         {
-            onSetFragment( `~${ type } ${ suggestion }` );
+            onSetFragment( `.${ type } ${ suggestion }` );
         }
     }
 

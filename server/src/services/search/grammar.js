@@ -20,7 +20,7 @@ not
     = "not"
 
 word
-    = $[^"'~,\(\) ]+
+    = $[^"'.,\(\) ]+
     / '"' str:$[^"]+ '"' { return str }
     / "'" str:$[^']+ "'" { return str }
 
@@ -28,7 +28,7 @@ set
     = word
 
 label
-    = "~" lbl:word { return lbl }
+    = "." lbl:word { return lbl }
 
 expression
     = union
