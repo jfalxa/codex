@@ -1,8 +1,6 @@
 import React from 'react';
 
 import Document  from './Document';
-import Container from '../utilities/Container';
-import parseTag  from '../../utils/parseTag';
 
 
 export default class DocumentCreator extends React.Component
@@ -27,16 +25,10 @@ export default class DocumentCreator extends React.Component
     }
 
 
-    handleAddTag = ( tag ) =>
-    {
-        this.props.addTag( parseTag( tag ) );
-    }
-
-
     render()
     {
         const { doc, fragment, suggestions } = this.props;
-        const { setFragment, removeTag, changeName, apiAutocomplete } = this.props;
+        const { setFragment, addTag, removeTag, changeName, apiAutocomplete } = this.props;
 
         return (
 
@@ -46,7 +38,7 @@ export default class DocumentCreator extends React.Component
                 suggestions={ suggestions }
                 getSuggestions={ apiAutocomplete }
                 onSetFragment={ setFragment }
-                onAddTag={ this.handleAddTag }
+                onAddTag={ addTag }
                 onRemoveTag={ removeTag }
                 onChangeName={ changeName }
                 onSaveDoc={ this.handleSaveDoc } />
