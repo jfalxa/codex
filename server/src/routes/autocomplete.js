@@ -4,7 +4,8 @@ const autocompleteCtrl = require( '../controllers/autocomplete' );
 
 const autocomplete = express.Router();
 
-autocomplete.get( '/', autocompleteCtrl.autocomplete );
+autocomplete.get( '/label', autocompleteCtrl.autocompleteLabel );
+autocomplete.get( '/tag', autocompleteCtrl.autocompleteTag );
 
 
 module.exports = autocomplete;
